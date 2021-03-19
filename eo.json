@@ -1,11 +1,5 @@
 {
 "author_name":"NicimakiClips",
 "type":"video",
-"version":"1.0",
-thumbnail: {
-    url: 'https://i.ytimg.com/vi/OUHVRWdVQCI/maxresdefault.jpg',
-    proxyURL: 'https://images-ext-2.discordapp.net/external/YaGrIFiUQ9Z1b-uHE32y-JUL2MyMRc2h6suC8SXQmpw/https/i.ytimg.com/vi/OUHVRWdVQCI/maxresdefault.jpg',
-    height: 720,
-    width: 1280
-  }
+"version":"1.0"
 }
