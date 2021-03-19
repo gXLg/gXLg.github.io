@@ -1,7 +1,12 @@
-{
-   "author_name": "NicimakiClips",
-   "author_url": "https://gxlg.github.io/index.html",
-   "thumbnail_url": "https://i.ytimg.com/vi/OUHVRWdVQCI/maxresdefault.jpg",
-   "thumbnail_height": 720,
-   "thumbnail_width": 1280
-}
+{"title":"SLAV MEME COMPILATION",
+"author_name":"NicimakiClips",
+"author_url":"https://www.youtube.com/c/NicimakiClips",
+"type":"video",
+"height":113,"width":200,
+"version":"1.0",
+"provider_name":"YouTube",
+"provider_url":"https://www.youtube.com/",
+"thumbnail_height":360,
+"thumbnail_width":480,
+"thumbnail_url":"https://i.ytimg.com/vi/OUHVRWdVQCI/hqdefault.jpg",
+"html":"\u003ciframe width=\u0022200\u0022 height=\u0022113\u0022 src=\u0022https://www.youtube.com/embed/OUHVRWdVQCI?feature=oembed\u0022 frameborder=\u00220\u0022 allow=\u0022accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\u0022 allowfullscreen\u003e\u003c/iframe\u003e"}
