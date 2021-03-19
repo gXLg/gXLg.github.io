@@ -5,9 +5,5 @@
 "height":720,
 "width":1280,
 "version":"1.0",
-"provider_name":"YouTube",
-"thumbnail_height":720,
-"thumbnail_width":1280,
-"thumbnail_url":"https://i.ytimg.com/vi/OUHVRWdVQCI/hqdefault.jpg",
-"html":"<iframe src=\"https://www.youtube.com/embed/OUHVRWdVQCI\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>"
+"provider_name":"YouTube"
 }
