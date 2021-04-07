@@ -171,7 +171,7 @@ function initParser(input, output) {
     clearObfuscators();
     var input = input,
         output = document.getElementById(output),
-        parsed = parseStyle( input.value );
+        parsed = parseStyle( input );
     output.innerHTML = '';
     output.appendChild(parsed);
 }
