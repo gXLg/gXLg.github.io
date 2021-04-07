@@ -169,12 +169,15 @@ function clearObfuscators() {
 function initParser(input, output) {
     alert ( "I am working" )
     clearObfuscators();
-    var input = document.getElementById(input),
+    var input = input,
         output = document.getElementById(output),
         parsed = parseStyle( input.value );
     output.innerHTML = '';
     output.appendChild(parsed);
 }
+var queryString = window.location.search
+var urlParams = new URLSearchParams(queryString)
+initParser(urlParams.get('i'), 'output')
 /////////////////////////////////////////////////
 var parseBtn = document.getElementById('parse');
 
