@@ -2,50 +2,14 @@
 <head>
 <link rel='stylesheet' media='screen' href='https://fontlibrary.org//face/minecraftia' type='text/css'/>
 <style>
-#inputContainer {
-    display: inline-block;
-    box-sizing: border-box;
-    padding: 1em;
-    width: 20em;
-    height: 20em;
+.e {
+  background-color: black;
+  color: #AAAAAA;
+  font-family: MinecraftiaRegular
 }
-#input {
-    box-sizing: border-box;
-    padding: 1em;
-    width: 20em;
-    height: 20em;
-}
-#parse {
-    padding: 1em;
-    width: 20em;
-}
-#output {
-    display: inline-block;
-    padding: 1em;
-    vertical-align: top;
-}
-.e { font-family: MinecraftiaRegular }
 </style>
 </head>
 <body>
-<div id="inputContainer">
-    <textarea id="input">
-§nMinecraft Formatting
-
-§r§00 §11 §22 §33
-§44 §55 §66 §77
-§88 §99 §aa §bb
-§cc §dd §ee §ff
-    
-§r§0k §kMinecraft
-§rl §lMinecraft
-§rm §mMinecraft
-§rn §nMinecraft
-§ro §oMinecraft
-§rr §rMinecraft
-    </textarea>
-    <input type="button" id="parse" value="Parse"/>
-</div>
 <pre id="output" class=e></pre>
 <script>
 var obfuscators = [];
@@ -71,7 +35,6 @@ var styleMap = {
     '§n': 'text-decoration:underline',
     '§o': 'font-style:italic',
 };
-alert("ready..?")
 function obfuscate(string, elem) {
     var magicSpan,
         currNode;
@@ -178,12 +141,6 @@ function initParser(input, output) {
 var queryString = window.location.search
 var urlParams = new URLSearchParams(queryString)
 initParser(urlParams.get('i'), 'output')
-/////////////////////////////////////////////////
-var parseBtn = document.getElementById('parse');
-
-parseBtn.onclick = function () {
-   initParser('input', 'output');
-};
 </script>
 </body>
 </html>
