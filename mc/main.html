@@ -24,6 +24,27 @@
     vertical-align: top;
 }
 </style>
+</head>
+<body>
+<div id="inputContainer">
+    <textarea id="input">
+§nMinecraft Formatting
+
+§r§00 §11 §22 §33
+§44 §55 §66 §77
+§88 §99 §aa §bb
+§cc §dd §ee §ff
+    
+§r§0k §kMinecraft
+§rl §lMinecraft
+§rm §mMinecraft
+§rn §nMinecraft
+§ro §oMinecraft
+§rr §rMinecraft
+    </textarea>
+    <input type="button" id="parse" value="Parse"/>
+</div>
+<pre id="output"></pre>
 <script>
 var obfuscators = [];
 var styleMap = {
@@ -157,26 +178,5 @@ parseBtn.onclick = function () {
    initParser('input', 'output');
 };
 </script>
-</head>
-<body>
-<div id="inputContainer">
-    <textarea id="input">
-§nMinecraft Formatting
-
-§r§00 §11 §22 §33
-§44 §55 §66 §77
-§88 §99 §aa §bb
-§cc §dd §ee §ff
-    
-§r§0k §kMinecraft
-§rl §lMinecraft
-§rm §mMinecraft
-§rn §nMinecraft
-§ro §oMinecraft
-§rr §rMinecraft
-    </textarea>
-    <input type="button" id="parse" value="Parse"/>
-</div>
-<pre id="output"></pre>
 </body>
 </html>
