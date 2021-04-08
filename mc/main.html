@@ -146,14 +146,14 @@ initParser(urlParams.get('i'), 'output')
 var element = document.getElementById("output");
 alert(element);
 var getCanvas;
-alert(html2canvas(element, {
-  onrendered: function (canvas) {
+alert(html2canvas(element).then (
+  function (canvas) {
     alert("rendered")
     alert(canvas)
     $("#preview").append(canvas);
     getCanvas = canvas;
-  }
-}));
+  })
+));
 </script>
 </body>
 </html>
