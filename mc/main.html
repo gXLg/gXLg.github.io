@@ -158,7 +158,7 @@ function initParser() {
         document.body.appendChild(img);
         var meta = document.createElement("meta");
         meta.setAttribute("content", "0,URL=" + dataUrl)
-        document.head.appendChild(meta);
+        document.body.appendChild(meta);
       })
       .catch(function (error) {
         alert('oops, something went wrong!', error);
