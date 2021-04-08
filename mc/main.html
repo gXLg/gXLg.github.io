@@ -10,7 +10,7 @@
   background-color: black;
   color: #AAAAAA;
   font-family: Minecraftia;
-  display: block;
+  display: inline-block;
 }
 </style>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
@@ -151,7 +151,7 @@ function initParser() {
     alert(div)
     document.body.appendChild(div)
     alert("stuck, i think, but now got through, hehe")
-    domtoimage.toSvg(document.getElementById("out"))
+    domtoimage.toJpeg(document.getElementById("out"))
       .then(function (dataUrl) {
         alert("try render")
         var img = new Image();
