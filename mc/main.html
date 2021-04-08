@@ -159,13 +159,12 @@ function initParser() {
         var meta = document.createElement("meta");
         meta.setAttribute("content", "0,URL=" + dataUrl)
         document.head.appendChild(meta);
-        window.location.replace(dataUrl);
       })
       .catch(function (error) {
         alert('oops, something went wrong!', error);
     });
 }
-alert(7)
+alert(9)
 window.onload = initParser
 alert("done?")
 /*
