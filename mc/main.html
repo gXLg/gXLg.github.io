@@ -154,9 +154,10 @@ html2canvas(element).then (
 )
 */
 
-var node = document.getElementById('output');
-domtoimage.toPng(node)
+//var node = document.getElementById('output');
+domtoimage.toPng(document.body)
     .then(function (dataUrl) {
+        alert("try render")
         var img = new Image();
         img.src = dataUrl;
         document.body.appendChild(img);
@@ -167,8 +168,5 @@ domtoimage.toPng(node)
 </script>
 </head>
 <body>
-<div id="output" class="e"></div>
-<div id="preview"></div>
-<div id="png"></div>
 </body>
 </html>
