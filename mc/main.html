@@ -15,11 +15,6 @@
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="./dom-to-image.js"></script>
-</head>
-<body>
-<div id="output" class="e"></div>
-<div id="preview"></div>
-<div id="png"></div>
 <script>
 var obfuscators = [];
 var styleMap = {
@@ -169,5 +164,10 @@ domtoimage.toPng(node)
         alert('oops, something went wrong!', error);
     });
 </script>
+</head>
+<body>
+<div id="output" class="e"></div>
+<div id="preview"></div>
+<div id="png"></div>
 </body>
 </html>
