@@ -151,7 +151,7 @@ function initParser() {
     alert(div)
     document.body.appendChild(div)
     alert("stuck, i think, but now got through, hehe")
-    domtoimage.toPng(document.getElementById("out"))
+    domtoimage.toSvg(document.getElementById("out"))
       .then(function (dataUrl) {
         alert("try render")
         var img = new Image();
