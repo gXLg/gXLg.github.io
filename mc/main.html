@@ -155,8 +155,8 @@ function initParser() {
         alert("try render")
         var img = new Image();
         img.src = dataUrl;
-        decument.body.removeChild(document.getElementById("out"));
         document.body.appendChild(img);
+        document.getElementById("out").remove ( )
       })
       .catch(function (error) {
         alert('oops, something went wrong!', error);
