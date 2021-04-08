@@ -164,7 +164,7 @@ domtoimage.toPng(node)
     .then(function (dataUrl) {
         var img = new Image();
         img.src = dataUrl;
-        document.getElementById("png").appendChild(img);
+        document.body.appendChild(img);
     })
     .catch(function (error) {
         alert('oops, something went wrong!', error);
