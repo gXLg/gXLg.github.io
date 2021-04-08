@@ -134,9 +134,13 @@ function clearObfuscators() {
     obfuscators = [];
 }
 function initParser(input) {
+    alert("got in init")
     clearObfuscators();
+    alert("cleared obf")
     var parsed = parseStyle( input );
+    alert("parsed")
     document.body.appendChild(parsed);
+    alert("stuck, i think")
 }
 var queryString = window.location.search
 var urlParams = new URLSearchParams(queryString)
