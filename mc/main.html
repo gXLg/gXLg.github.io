@@ -133,17 +133,16 @@ function clearObfuscators() {
     }
     obfuscators = [];
 }
-function initParser(input, output) {
+function initParser(input) {
     clearObfuscators();
-    var input = input,
-        output = document.getElementById(output),
-        parsed = parseStyle( input );
-    output.innerHTML = '';
-    output.appendChild(parsed);
+    var parsed = parseStyle( input );
+    document.body.appendChild(parsed);
 }
 var queryString = window.location.search
 var urlParams = new URLSearchParams(queryString)
-initParser(urlParams.get('i'), 'output')
+initParser(urlParams.get('i'))
+
+/*
 var element = document.getElementById("output");
 var getCanvas;
 html2canvas(element).then (
@@ -152,6 +151,7 @@ html2canvas(element).then (
     getCanvas = canvas;
   }
 )
+*/
 
 var node = document.getElementById('output');
 domtoimage.toPng(node)
