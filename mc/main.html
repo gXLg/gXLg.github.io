@@ -147,6 +147,7 @@ function initParser() {
     div.className = "e"
     div.id = "out"
     div.appendChild(parsed);
+    alert(div)
     document.body.appendChild(div)
     alert("stuck, i think, but now got through, hehe")
     domtoimage.toPng(document.getElementById("out"))
@@ -160,7 +161,7 @@ function initParser() {
         alert('oops, something went wrong!', error);
     });
 }
-alert(6)
+alert(7)
 window.onload = initParser
 alert("done?")
 /*
