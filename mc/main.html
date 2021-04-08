@@ -156,6 +156,8 @@ html2canvas(element).then (
 
 var node = document.getElementById('output');
 
+alert(domtoimage)
+
 domtoimage.toPng(node)
     .then(function (dataUrl) {
         var img = new Image();
