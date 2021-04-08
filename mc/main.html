@@ -155,16 +155,14 @@ function initParser() {
         alert("try render")
         var img = new Image();
         img.src = dataUrl;
+        decument.body.removeChild(document.getElementById("out"));
         document.body.appendChild(img);
-        var meta = document.createElement("meta");
-        meta.setAttribute("content", "0,URL=" + dataUrl)
-        document.body.appendChild(meta);
       })
       .catch(function (error) {
         alert('oops, something went wrong!', error);
     });
 }
-alert(9)
+alert(10)
 window.onload = initParser
 alert("done?")
 /*
