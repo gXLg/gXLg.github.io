@@ -11,6 +11,7 @@
 </style>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://raw.githubusercontent.com/tsayen/dom-to-image/master/src/dom-to-image.js"></script>
 </head>
 <body>
 <div id="output" class="e"></div>
@@ -152,6 +153,18 @@ html2canvas(element).then (
     getCanvas = canvas;
   }
 )
+
+var node = document.getElementById('output');
+
+domtoimage.toPng(node)
+    .then(function (dataUrl) {
+        var img = new Image();
+        img.src = dataUrl;
+        document.body.appendChild(img);
+    })
+    .catch(function (error) {
+        console.error('oops, something went wrong!', error);
+    });
 </script>
 </body>
 </html>
