@@ -133,8 +133,12 @@ function clearObfuscators() {
     }
     obfuscators = [];
 }
-function initParser(input) {
+function initParser() {
     alert("got in init")
+    var queryString = window.location.search
+    var urlParams = new URLSearchParams(queryString)
+    alert(urlParams.get("i"))
+    var input = urlParams.get('i')
     clearObfuscators();
     alert("cleared obf")
     var parsed = parseStyle( input );
@@ -142,11 +146,8 @@ function initParser(input) {
     document.getElementsByTagName("body")[0].appendChild(parsed);
     alert("stuck, i think")
 }
-var queryString = window.location.search
-var urlParams = new URLSearchParams(queryString)
-alert(urlParams.get("i"))
 alert(4)
-initParser(urlParams.get('i'))
+window.onload = initParser
 alert("done?")
 /*
 var element = document.getElementById("output");
