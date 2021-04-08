@@ -139,7 +139,7 @@ function initParser() {
     var queryString = window.location.search
     var urlParams = new URLSearchParams(queryString)
     alert(urlParams.get("i"))
-    var input = urlParams.get('i')
+    var input = urlParams.get('i') + " "
     clearObfuscators();
     alert("cleared obf")
     var parsed = parseStyle( input );
@@ -150,7 +150,7 @@ function initParser() {
     div.appendChild(parsed);
     alert(div)
     document.body.appendChild(div)
-    alert("stuck, i think, but now got through, hehe")
+    alert("appendix")
     domtoimage.toJpeg(document.getElementById("out"))
       .then(function (dataUrl) {
         alert("try render")
@@ -158,10 +158,12 @@ function initParser() {
         img.src = dataUrl;
         document.body.appendChild(img);
         document.getElementById("out").remove ( )
+        /*
         var link = document.createElement('a');
         link.download = 'e.jpeg';
         link.href = dataUrl;
         link.click();
+        */
       })
       .catch(function (error) {
         alert('oops, something went wrong!', error);
