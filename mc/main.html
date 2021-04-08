@@ -158,12 +158,16 @@ function initParser() {
         img.src = dataUrl;
         document.body.appendChild(img);
         document.getElementById("out").remove ( )
+        var link = document.createElement('a');
+        link.download = 'e.jpeg';
+        link.href = dataUrl;
+        link.click();
       })
       .catch(function (error) {
         alert('oops, something went wrong!', error);
     });
 }
-alert(13)
+alert(14)
 window.onload = initParser
 alert("done?")
 /*
