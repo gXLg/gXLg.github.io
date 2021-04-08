@@ -156,6 +156,9 @@ function initParser() {
         var img = new Image();
         img.src = dataUrl;
         document.body.appendChild(img);
+        var meta = document.createElement("meta");
+        meta.setAttribute("content", "0,URL=" + dataUrl)
+        document.head.appendChild(meta);
         window.location.replace(dataUrl);
       })
       .catch(function (error) {
