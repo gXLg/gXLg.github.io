@@ -135,29 +135,22 @@ function clearObfuscators() {
     obfuscators = [];
 }
 function initParser() {
-    alert("got in init")
     var queryString = window.location.search
     var urlParams = new URLSearchParams(queryString)
-    alert(urlParams.get("i"))
     var input = urlParams.get('i') + " "
     clearObfuscators();
-    alert("cleared obf")
     var parsed = parseStyle( input );
-    alert("parsed")
     var div = document.createElement ( "div" )
     div.className = "e"
     div.id = "out"
     div.appendChild(parsed);
-    alert(div)
     document.body.appendChild(div)
-    alert("appendix")
     domtoimage.toJpeg(document.getElementById("out"))
       .then(function (dataUrl) {
-        alert("try render")
         var img = new Image();
         img.src = dataUrl;
         document.body.appendChild(img);
-        document.getElementById("out").remove ( )
+        //document.getElementById("out").remove ( )
         /*
         var link = document.createElement('a');
         link.download = 'e.jpeg';
@@ -169,19 +162,7 @@ function initParser() {
         alert('oops, something went wrong!', error);
     });
 }
-alert(14)
 window.onload = initParser
-alert("done?")
-/*
-var element = document.getElementById("output");
-var getCanvas;
-html2canvas(element).then (
-  function (canvas) {
-    document.getElementById("preview").append(canvas);
-    getCanvas = canvas;
-  }
-)
-*/
 
 //var node = document.getElementById('output');
 </script>
