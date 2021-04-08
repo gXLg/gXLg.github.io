@@ -139,13 +139,13 @@ function initParser(input) {
     alert("cleared obf")
     var parsed = parseStyle( input );
     alert("parsed")
-    document.body.appendChild(parsed);
+    document.getElementsByIdTag("body")[0].appendChild(parsed);
     alert("stuck, i think")
 }
 var queryString = window.location.search
 var urlParams = new URLSearchParams(queryString)
 alert(urlParams.get("i"))
-alert(2)
+alert(3)
 initParser(urlParams.get('i'))
 alert("done?")
 /*
