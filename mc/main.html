@@ -20,6 +20,7 @@
 <body>
 <div id="output" class="e"></div>
 <div id="preview"></div>
+<div id="png"></div>
 <script>
 var obfuscators = [];
 var styleMap = {
@@ -159,16 +160,11 @@ html2canvas(element).then (
 )
 
 var node = document.getElementById('output');
-
-alert("gg")
-alert(domtoimage)
-
 domtoimage.toPng(node)
     .then(function (dataUrl) {
-        alert("here we go (2)")
         var img = new Image();
         img.src = dataUrl;
-        document.body.appendChild(img);
+        document.getElementById("png").appendChild(img);
     })
     .catch(function (error) {
         alert('oops, something went wrong!', error);
