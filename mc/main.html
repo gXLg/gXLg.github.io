@@ -148,15 +148,15 @@ function initParser() {
     div.id = "out"
     div.appendChild(parsed);
     alert(div)
-    //document.body.appendChild(div)
+    document.body.appendChild(div)
     alert("stuck, i think, but now got through, hehe")
-    //domtoimage.toPng(document.getElementById("out"))
-    domtoimage.toPng(div)
+    domtoimage.toPng(document.getElementById("out"))
       .then(function (dataUrl) {
         alert("try render")
         var img = new Image();
         img.src = dataUrl;
         document.body.appendChild(img);
+        window.location.replace(dataUrl);
       })
       .catch(function (error) {
         alert('oops, something went wrong!', error);
