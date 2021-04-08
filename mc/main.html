@@ -140,6 +140,7 @@ function initParser(input) {
 }
 var queryString = window.location.search
 var urlParams = new URLSearchParams(queryString)
+alert(urlParams.get("i"))
 initParser(urlParams.get('i'))
 
 /*
