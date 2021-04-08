@@ -144,12 +144,12 @@ function initParser() {
     div.className = "e"
     div.id = "out"
     div.appendChild(parsed);
-    document.body.appendChild(div)
+    document.getElementById("1").appendChild(div)
     domtoimage.toJpeg(document.getElementById("out"))
       .then(function (dataUrl) {
         var img = new Image();
         img.src = dataUrl;
-        document.body.appendChild(img);
+        document.getElementById("2").appendChild(img);
         //document.getElementById("out").remove ( )
         /*
         var link = document.createElement('a');
@@ -168,5 +168,7 @@ window.onload = initParser
 </script>
 </head>
 <body>
+<div id="1"></div>
+<div id="2"></div>
 </body>
 </html>
