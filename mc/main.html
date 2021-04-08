@@ -148,9 +148,10 @@ function initParser() {
     div.id = "out"
     div.appendChild(parsed);
     alert(div)
-    document.body.appendChild(div)
+    //document.body.appendChild(div)
     alert("stuck, i think, but now got through, hehe")
-    domtoimage.toPng(document.getElementById("out"))
+    //domtoimage.toPng(document.getElementById("out"))
+    domtoimage.toPng(div)
       .then(function (dataUrl) {
         alert("try render")
         var img = new Image();
