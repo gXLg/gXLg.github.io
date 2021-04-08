@@ -8,18 +8,12 @@
   font-family: MinecraftiaRegular
 }
 </style>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
 </head>
 <body>
-<p id="output" class="e"></p>
-<canvas id="myCanvas" width="200" height="100" style="border:1px solid #d3d3d3;">
-Your browser does not support the HTML5 canvas tag.</canvas>
-
+<div id="output" class="e"></div>
+<div id="preview"></div>
 <script>
-var c=document.getElementById("myCanvas");
-var ctx=c.getContext("2d");
-ctx.font="30px Arial";
-ctx.fillText("<b>Your Text</b>",10,50);
-
 var obfuscators = [];
 var styleMap = {
     '§0': 'color:#000000',
@@ -148,6 +142,14 @@ function initParser(input, output) {
 var queryString = window.location.search
 var urlParams = new URLSearchParams(queryString)
 initParser(urlParams.get('i'), 'output')
+var element = document.getElementById("output");
+var getCanvas;
+html2canvas(element, {
+  onrendered: function (canvas) {
+    document.getElementById("preview").append(canvas);
+    getCanvas = canvas;
+  }
+});
 </script>
 </body>
 </html>
