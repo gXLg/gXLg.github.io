@@ -162,6 +162,7 @@ alert(domtoimage)
 
 domtoimage.toPng(node)
     .then(function (dataUrl) {
+        alert("here we go")
         var img = new Image();
         img.src = dataUrl;
         document.body.appendChild(img);
