@@ -3,6 +3,7 @@
 <link rel='stylesheet' media='screen' href='https://fontlibrary.org//face/minecraftia' type='text/css'/>
 <style>
 .e {
+  padding: 10px;
   background-color: black;
   color: #AAAAAA;
   font-family: MinecraftiaRegular
@@ -144,16 +145,13 @@ var queryString = window.location.search
 var urlParams = new URLSearchParams(queryString)
 initParser(urlParams.get('i'), 'output')
 var element = document.getElementById("output");
-alert(element);
 var getCanvas;
-alert(html2canvas(element).then (
+html2canvas(element).then (
   function (canvas) {
-    alert("rendered")
-    alert(canvas)
-    $("#preview").append(canvas);
+    document.getElementById("preview").append(canvas);
     getCanvas = canvas;
-  })
-);
+  }
+)
 </script>
 </body>
 </html>
