@@ -150,7 +150,7 @@ html2canvas(element, {
   onrendered: function (canvas) {
     alert("rendered")
     alert(canvas)
-    document.getElementById("preview").append(canvas);
+    $("#preview").append(canvas);
     getCanvas = canvas;
   }
 });
