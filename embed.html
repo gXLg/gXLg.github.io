@@ -71,7 +71,7 @@ function send ( ) {
     if ( res.status == "200" ) {
       alert ( "Success" )
       document.getElementById ( "Msg" ).value = ""
-    } else alert ( "Something wrong\nError: " + res.json ( ))
+    } else alert ( "Error: " + res.json ( ))
   })
 }
 </script>
