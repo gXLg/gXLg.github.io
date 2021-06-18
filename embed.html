@@ -54,8 +54,10 @@ function send ( ) {
       }
     })
   }).then ( res => {
-    alert ( res.status == "200" ? "Success" : "Smth wrong" )
-    document.getElementById ( "msg" ).value = ""
+    if ( res.status == "200" ) {
+      alert ( "Success" )
+      document.getElementById ( "msg" ).value = ""
+    } else alert ( "Something wrong" )
   })
 }
 </script>
