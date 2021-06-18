@@ -13,10 +13,12 @@ function send ( ) {
       authorization : token,
       "content-type" : "application/json"
     },
-    embed : {
-      color: color,
-      description: msg
-    }
+    body : JSON.stringify ( {
+      embed : {
+        color: color,
+        description: msg
+      }
+    })
   }).then ( res => window.res = res )
 }
 </script>
