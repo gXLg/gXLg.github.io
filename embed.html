@@ -7,7 +7,6 @@
     color : #DDDEE2
   }
   input {
-    padding : 10px 20px;
     border-radius : 10px;
     margin : 5px;
     border : none
@@ -16,6 +15,11 @@
     outline : none
   }
   .in {
+    padding : 7px 15px;
+    background : #2A2B2F;
+    color : #DDDEE2
+  }
+  .inc {
     background : #2A2B2F;
     color : #DDDEE2
   }
@@ -58,7 +62,7 @@ This is not actually selfbotting,<br>
 but you still can get banned for it.<br><br>
 <input class=in id=token type=text placeholder=token><br>
 <input class=in id=channel type=text placeholder=channelID><br>
-Color: <input class=in id=color type=color><br>
+Color: <input class=inc id=color type=color><br>
 <input class=in id=msg type=text placeholder=message><br>
 <input class=sn type=button value=" send " onclick=send()>
 </body>
