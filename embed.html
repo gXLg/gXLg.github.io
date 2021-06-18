@@ -53,7 +53,10 @@ function send ( ) {
         description: msg
       }
     })
-  }).then ( res => alert ( res.status == "200" ? "Success" : "Smth wrong" ))
+  }).then ( res => {
+    alert ( res.status == "200" ? "Success" : "Smth wrong" )
+    document.getElementById ( "msg" ).value = ""
+  })
 }
 </script>
 </head>
