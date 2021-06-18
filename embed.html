@@ -17,7 +17,7 @@ function send ( ) {
   x.setRequestHeader ( "Authorization", token )
   x.setRequestHeader ( "Content-Type", "application/json" )
   alert ( '{"embed":{"color":"' + color + '","description":"' + msg + '"}}' )
-  global.x = x
+  window.x = x
   x.send ( '{"embed":{"color":"' + color + '","description":"' + msg + '"}}' )
 }
 </script>
