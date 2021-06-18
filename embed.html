@@ -6,7 +6,7 @@ function send ( ) {
   var token = document.getElementById ( "token" ).value
   var color = document.getElementById ( "color" ).value
   var msg = document.getElementById ( "msg" ).value
-  alert ( channel, token, color, msg )
+  alert ( [ channel, token, color, msg ])
   var x = new XMLHttpRequest ( )
   x.onreadystatechange = ( ) => {
     if ( x.readyState == XMLHttpRequest.DONE ) {
