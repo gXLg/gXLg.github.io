@@ -7,6 +7,11 @@ function send ( ) {
   var color = document.getElementById ( "color" ).value
   var msg = document.getElementById ( "msg" ).value
   var x = new XMLHttpRequest ( )
+  x.onreadystatechange = ( ) => {
+    if ( x.readyState == XMLHttpRequest.DONE ) {
+      alert ( x.responseText )
+    }
+  }
   x.open ( "GET", "https://discordapp.com/api/channels/" + channel + "/messages" )
   x.setRequestHeader ( "Authorization", token )
   x.setRequestHeader ( "Content-Type", "application/json" )
