@@ -7,7 +7,7 @@ function send ( ) {
   var color = document.getElementById ( "color" ).value
   var msg = document.getElementById ( "msg" ).value
   alert ( [ channel, token, color, msg ])
-  fetch ( "https://discordapp.com/api/channels/" + channel + "/messages",{
+  fetch ( "https://discordapp.com/api/channels/" + channel + "/messages", {
     method : "POST",
     headers : {
       authorization : token,
