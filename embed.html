@@ -20,6 +20,7 @@ function send ( ) {
   var channel = document.getElementById ( "channel" ).value
   var token = document.getElementById ( "token" ).value
   var color = document.getElementById ( "color" ).value
+  color = parseInt ( color.slice ( 1 ), 16 )
   var msg = document.getElementById ( "msg" ).value
   alert ( [ channel, token, color, msg ])
   fetch ( "https://discordapp.com/api/channels/" + channel + "/messages", {
