@@ -13,11 +13,9 @@ function send ( ) {
       authorization : token,
       "content-type" : "application/json"
     },
-    body : {
-      embed : {
-        color: color,
-        description: msg
-      }
+    embed : {
+      color: color,
+      description: msg
     }
   }).then ( res => window.res = res )
 }
