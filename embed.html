@@ -50,11 +50,11 @@
 </style>
 <script>
 function send ( ) {
-  var channel = document.getElementById ( "channel" ).value
-  var token = document.getElementById ( "token" ).value
-  var color = document.getElementById ( "color" ).value
+  var channel = document.getElementById ( "Channel" ).value
+  var token = document.getElementById ( "Token" ).value
+  var color = document.getElementById ( "Color" ).value
   color = parseInt ( color.slice ( 1 ), 16 )
-  var msg = document.getElementById ( "msg" ).value
+  var msg = document.getElementById ( "Msg" ).value
   fetch ( "https://discordapp.com/api/channels/" + channel + "/messages", {
     method : "POST",
     headers : {
@@ -79,10 +79,10 @@ function send ( ) {
 <body>
 <div>
 <img src="https://raw.githubusercontent.com/gXLg/gXLg.github.io/main/discord.png">
-<input class=in id=token type=text placeholder=token><br>
-<input class=in id=channel type=text placeholder=channelID><br>
-Color: <input class=inc id=color type=color><br>
-<input class=in id=msg type=text placeholder=message><br>
+<input class=in id=Token type=text placeholder=token><br>
+<input class=in id=Channel type=text placeholder=channelID><br>
+Color: <input class=inc id=Color type=color><br>
+<input class=in id=Msg type=text placeholder=message><br>
 <input class=sn type=button value=" send " onclick=send()>
 <div>
 </body>
