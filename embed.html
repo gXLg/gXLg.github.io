@@ -10,6 +10,10 @@
     background : #2A2B2F;
     color : #DDDEE2
   }
+  ::placeholder {
+    color : #71747B;
+    opacity : 1
+  }
 </style>
 <script>
 function send ( ) {
@@ -38,9 +42,9 @@ function send ( ) {
 Warning! This is not actually selfbotting,
 but you still can get banned for it.<br>
 <input class=in id=token type=text placeholder=token><br>
-channelID:<input class=in id=channel type=text><br>
-color:<input class=in id=color type=text><br>
-message:<input class=in id=msg type=text><br>
-<input type=button value=" send " onclick=send()>
+<input class=in id=channel type=text placeholder=channelID><br>
+<input class=in id=color type=color placeholder=color><br>
+<input class=in id=msg type=text placeholder=message><br>
+<input class=sn type=button value=" send " onclick=send()>
 </body>
 </html>
