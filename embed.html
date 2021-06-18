@@ -2,7 +2,15 @@
 <head>
 <script>
 function send ( ) {
-  alert ( "lol" )
+  var channel = document.getElementById ( "channel" ).value
+  var token = document.getElementById ( "token" ).value
+  var color = document.getElementById ( "color" ).value
+  var msg = document.getElementById ( "msg" ).value
+  var x = new XMLHttpRequest ( )
+  x.open ( "GET", "https://discordapp.com/api/channels/" + channel + "/messages" )
+  x.setRequestHeader ( "Authorization", token )
+  x.setRequestHeader ( "Content-Type", "application/json" )
+  x.send ( '{"embed":{"color":"' + color + '","description":"' + msg + '"}}' )
 }
 </script>
 </head>
