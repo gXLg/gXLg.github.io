@@ -1,5 +1,16 @@
 <html>
 <head>
+<title>Discord Embed Sender</title>
+<style>
+body {
+  background : #363940,
+  color : #DDDEE2
+}
+.in {
+  background : #2A2B2F,
+  color : #DDDEE2
+}
+</style>
 <script>
 function send ( ) {
   var channel = document.getElementById ( "channel" ).value
@@ -26,10 +37,10 @@ function send ( ) {
 <body>
 Warning! This is not actually selfbotting,
 but you still can get banned for it.<br>
-token:<input id=token type=text><br>
-channelID:<input id=channel type=text><br>
-color:<input id=color type=text><br>
-message:<input id=msg type=text><br>
+<input class=in id=token type=text placeholder=token><br>
+channelID:<input class=in id=channel type=text><br>
+color:<input class=in id=color type=text><br>
+message:<input class=in id=msg type=text><br>
 <input type=button value=" send " onclick=send()>
 </body>
 </html>
