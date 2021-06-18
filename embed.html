@@ -72,7 +72,7 @@ function send ( ) {
       alert ( "Success" )
       document.getElementById ( "Msg" ).value = ""
     } else res.json ( )
-        .then ( j => window.j = j/*alert ( "Error: " + j )*/)
+        .then ( j => alert ( "Error: " + j.message ))
   })
 }
 </script>
