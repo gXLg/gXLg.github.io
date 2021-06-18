@@ -53,8 +53,7 @@ function send ( ) {
         description: msg
       }
     })
-  }).then ( res => if ( res.status == "200" ) alert ( "Success" )
-                   else alert ( "Smth wrong" ))
+  }).then ( res => alert ( res.status == "200" ? "Success" : "Smth wrong" ))
 }
 </script>
 </head>
