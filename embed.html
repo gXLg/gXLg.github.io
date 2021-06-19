@@ -47,6 +47,46 @@
     color : #71747B;
     opacity : 1
   }
+  //Downloaded from https://www.codeseek.co/Gibbu/discord-switch-OvVREX
+  #switchSmall {
+    height: 10px;
+    width: 50px;
+    background: #eee;
+    border-radius: 50px;
+    cursor: pointer;
+    position: relative;
+    padding: 10px;
+    box-sizing: border-box;
+    transition: 0.3s ease;
+  }
+  #switchSmall:before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    height: 70%;
+    width: 28%;
+    background: #fff;
+    border-radius: 50%;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    transition: 0.3s ease;
+  }
+  .switch:active:before {
+    padding-left: 25%;
+    border-radius: 100px;
+  }
+  .switch.toggle {
+    background: #7289DA;
+  }
+  .switch.toggle:before {
+    margin-left: 28px;
+  }
+  .switch.toggle:active:before {
+    padding-left: 0;
+    width: 55%;
+    margin-left: 14px;
+  }
 </style>
 <script>
 function send ( ) {
@@ -89,6 +129,7 @@ if you don't trust me!<br>
 <input class=in id=Channel type=text placeholder=channelID><br>
 <input class=in id=Msg type=text placeholder=message><br>
 Color: <input class=inc id=Color type=color value="#3C3D42"><br>
+Bot: <div class=switch></div><br>
 <input class=sn type=button value=" send " onclick=send()>
 <div>
 </body>
