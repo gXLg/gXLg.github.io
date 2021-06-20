@@ -18,7 +18,8 @@
     max-height : 100vh;
     height: auto
   }
-  input {
+  input,textarea {
+    resize : none;
     font-family : DSFont;
     border-radius : 10px;
     margin : 5px;
@@ -139,7 +140,7 @@ Bot token:<span style="display:inline-block;margin-left:5px" id=switch class=tog
   Warning! This may violate the ToS of Discord.
 </span><br>
 <input class=in id=Channel type=text placeholder=channelID><br>
-<textarea rows=5 class=in id=Msg placeholder=message></textarea><br>
+<textarea rows=2 class=in id=Msg placeholder=message></textarea><br>
 Color: <input class=inc id=Color type=color value="#3C3D42"><br>
 <input class=sn type=button value=" send " onclick=send()>
 </body>
