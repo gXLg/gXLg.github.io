@@ -142,6 +142,9 @@ function toggle ( ) {
     .classList.toggle('hide')
 }
 function color ( ) {
+  document.getElementById ( "ColorBox" ).value = document.getElementById ( "Color" ).value
+}
+function color2 ( ) {
   document.getElementById ( "Color" ).value = document.getElementById ( "ColorBox" ).value
 }
 </script>
@@ -150,16 +153,16 @@ function color ( ) {
 <img src="https://raw.githubusercontent.com/gXLg/gXLg.github.io/main/discord.png"><br>
 <input class=in id=Token type=text placeholder=token><br>
 <span style="display:inline-flex">
-Bot token:<span style="display:inline-block;margin-left:5px" id=switch class=toggle onclick=toggle()></span>
+  Bot token:<span style="display:inline-block;margin-left:5px" id=switch class=toggle onclick=toggle()></span>
 </span><br>
 <span id=warning class=hide>
   Warning! This may violate the ToS of Discord.
 </span><br>
 <input class=in id=Channel type=text placeholder=channelID><br>
 <textarea rows=2 class=in id=Msg placeholder=message></textarea><br>
-<div style="font-size:0;box-sizing:border-box">
-  <textarea class=inc id=Color placeholder=Color></textarea>
-  <input class=incb id=ColorBox type=color value="#3C3D42" onchange=color()>
+<div style="font-size:0;display:inline-flex">
+  <input class=inc id=Color type=text placeholder=Color onchange=color()>
+  <input class=incb id=ColorBox type=color value="#3C3D42" onchange=color2()>
 </div>
 <input class=sn type=button value=" send " onclick=send()>
 </body>
