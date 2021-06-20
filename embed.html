@@ -9,6 +9,7 @@
   }
   body, html {
     text-align : center;
+    display : flex;
     font-family : DSFont;
     background : #363940;
     color : #DDDEE2
@@ -46,50 +47,50 @@
     opacity : 1
   }
   #switch {
-    height: 10px;
-    width: 50px;
-    background: #B6B7BB;
-    border-radius: 50px;
-    cursor: pointer;
-    position: relative;
-    padding: 10px;
-    box-sizing: border-box;
-    transition: 0.3s ease
+    height : 10px;
+    width : 50px;
+    background : #B6B7BB;
+    border-radius : 50px;
+    cursor : pointer;
+    position : relative;
+    padding : 10px;
+    box-sizing : border-box;
+    transition : 0.3s ease
   }
   #switch:before {
-    content: "";
-    position: absolute;
-    left: 4px;
-    height: 70%;
-    width: 28%;
-    background: #DDDEE2;
-    border-radius: 50%;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-            transform: translateY(-50%);
-    transition: 0.3s ease
+    content : "";
+    position : absolute;
+    left : 4px;
+    height : 70%;
+    width : 28%;
+    background : #DDDEE2;
+    border-radius : 50%;
+    top : 50%;
+    -webkit-transform : translateY(-50%);
+            transform : translateY(-50%);
+    transition : 0.3s ease
   }
   #switch:active:before {
-    padding-left: 25%;
-    border-radius: 100px
+    padding-left : 25%;
+    border-radius : 100px
   }
   #switch.toggle {
-    background: #5865F2
+    background : #5865F2
   }
   #switch.toggle:before {
-    margin-left: 28px
+    margin-left : 28px
   }
   #switch.toggle:active:before {
-    padding-left: 0;
-    width: 55%;
-    margin-left: 14px
+    padding-left : 0;
+    width : 55%;
+    margin-left : 14px
   }
   #warning {
-    color: #ED4245;
-    font-size: small
+    color : #ED4245;
+    font-size : small
   }
   #warning.hide {
-    display: none
+    display : none
   }
 </style>
 <script>
