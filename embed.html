@@ -35,14 +35,12 @@
     padding : 7px 15px
   }
   .inc {
-    height : 40px;
     padding : 7px 15px;
     width : 50%;
     margin : 5px 0px;
     border-radius : 10px 0px 0px 10px
   }
   .incb {
-    height : 40px;
     padding : 7px 15px;
     width : 10%;
     margin : 5px 0px;
@@ -160,7 +158,7 @@ Bot token:<span style="display:inline-block;margin-left:5px" id=switch class=tog
 <input class=in id=Channel type=text placeholder=channelID><br>
 <textarea rows=2 class=in id=Msg placeholder=message></textarea><br>
 <div style="font-size:0;box-sizing:border-box">
-  <input class=inc id=Color type=text placeholder=Color>
+  <textarea class=inc id=Color placeholder=Color></textarea>
   <input class=incb id=ColorBox type=color value="#3C3D42" onchange=color()>
 </div>
 <input class=sn type=button value=" send " onclick=send()>
