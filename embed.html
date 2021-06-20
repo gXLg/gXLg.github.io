@@ -21,6 +21,8 @@
   input, textarea {
     resize : none;
     font-family : DSFont;
+    background : #2A2B2F;
+    color : #DDDEE2
     border-radius : 10px;
     margin : 5px;
     border : none
@@ -31,12 +33,14 @@
   .in {
     width : 60%;
     padding : 7px 15px;
-    background : #2A2B2F;
-    color : #DDDEE2
   }
   .inc {
-    background : #2A2B2F;
-    color : #DDDEE2
+    width : 50%;
+    margin : 5px 0px
+  }
+  .incb {
+    width : 10%;
+    margin : 5px 0px
   }
   .sn {
     padding : 7px;
@@ -149,8 +153,8 @@ Bot token:<span style="display:inline-block;margin-left:5px" id=switch class=tog
 </span><br>
 <input class=in id=Channel type=text placeholder=channelID><br>
 <textarea rows=2 class=in id=Msg placeholder=message></textarea><br>
-<input class=in id=Color type=text placeholder=Color>
-<input class=inc id=ColorBox type=color value="#3C3D42" onchange=color()><br>
+<input class=inc id=Color type=text placeholder=Color>
+<input class=incb id=ColorBox type=color value="#3C3D42" onchange=color()><br>
 <input class=sn type=button value=" send " onclick=send()>
 </body>
 </html>
