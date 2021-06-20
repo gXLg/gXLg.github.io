@@ -38,13 +38,19 @@
     padding : 7px 15px;
     width : 50%;
     margin : 5px 0px;
-    border-radius : 10px 0px 0px 10px
+    border-radius : 10px 0px 0px 10px;
+    height: 5em;
+    line-height: 5em;
+    vertical-align: middle;
   }
   .incb {
     //padding : 7px 15px;
     width : 10%;
     margin : 5px 0px;
-    border-radius : 0px 10px 10px 0px
+    border-radius : 0px 10px 10px 0px;
+    height: 5em;
+    line-height: 5em;
+    vertical-align: middle;
   }
   .sn {
     padding : 7px;
@@ -160,10 +166,10 @@ function color2 ( ) {
 </span><br>
 <input class=in id=Channel type=text placeholder=channelID><br>
 <textarea rows=2 class=in id=Msg placeholder=message></textarea><br>
-<span style="font-size:0;display:inline-block">
+<div style="font-size:0">
   <input class=inc id=Color type=text placeholder=Color onchange=color()>
   <input class=incb id=ColorBox type=color value="#3C3D42" onchange=color2()>
-</span><br>
+</div>
 <input class=sn type=button value=" send " onclick=send()>
 </body>
 </html>
