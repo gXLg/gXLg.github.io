@@ -19,7 +19,6 @@
     height: auto
   }
   input, textarea {
-    box-sizing : border-box;
     resize : none;
     font-family : DSFont;
     background : #2A2B2F;
@@ -157,8 +156,7 @@ Bot token:<span style="display:inline-block;margin-left:5px" id=switch class=tog
 </span><br>
 <input class=in id=Channel type=text placeholder=channelID><br>
 <textarea rows=2 class=in id=Msg placeholder=message></textarea><br>
-<input class=inc id=Color type=text placeholder=Color>
-<input class=incb id=ColorBox type=color value="#3C3D42" onchange=color()><br>
+<input class=inc id=Color type=text placeholder=Color><input class=incb id=ColorBox type=color value="#3C3D42" onchange=color()><br>
 <input class=sn type=button value=" send " onclick=send()>
 </body>
 </html>
