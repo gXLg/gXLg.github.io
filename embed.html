@@ -101,7 +101,11 @@ function send ( ) {
   if ( document.getElementById ( "switch" ).classList.contains ( "toggle" ))
     token = "Bot " + token
   var color = document.getElementById ( "Color" ).value
-  color = parseInt ( color.slice ( 1 ), 16 )
+  if ( ( ! ( color [ 0 ] == "#" && color.length == 7 )) && color != "" ) {
+    alert ( "Invalid color given, please enter hex format color!" )
+    return
+  }
+  color = color.length ? parseInt ( color.slice ( 1 ), 16 ) : 3947842
   var msg = document.getElementById ( "Msg" ).value
   fetch ( "https://discordapp.com/api/channels/" + channel + "/messages", {
     method : "POST",
@@ -129,6 +133,9 @@ function toggle ( ) {
   document.getElementById('warning')
     .classList.toggle('hide')
 }
+function color ( ) {
+  document.getElementById ( "Color" ).value = document.getElementById ( "ColorBox" ).value
+}
 </script>
 </head>
 <body>
@@ -142,7 +149,8 @@ Bot token:<span style="display:inline-block;margin-left:5px" id=switch class=tog
 </span><br>
 <input class=in id=Channel type=text placeholder=channelID><br>
 <textarea rows=2 class=in id=Msg placeholder=message></textarea><br>
-Color: <input class=inc id=Color type=color value="#3C3D42"><br>
+<input class=in id=Color type=text placeholder=Color>
+<input class=inc id=ColorBox type=color value="#3C3D42" onchange=color()><br>
 <input class=sn type=button value=" send " onclick=send()>
 </body>
 </html>
