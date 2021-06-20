@@ -96,6 +96,8 @@
 function send ( ) {
   var channel = document.getElementById ( "Channel" ).value
   var token = document.getElementById ( "Token" ).value
+  if ( document.getElementById ( "switch" ).classList.constains ( "toggle" ))
+    token = "Bot " + token
   var color = document.getElementById ( "Color" ).value
   color = parseInt ( color.slice ( 1 ), 16 )
   var msg = document.getElementById ( "Msg" ).value
@@ -129,9 +131,6 @@ function toggle ( ) {
 </head>
 <body>
 <img src="https://raw.githubusercontent.com/gXLg/gXLg.github.io/main/discord.png"><br>
-Important note: do not enter your token<br>
-if you don't trust me!<br>
-<a href="https://github.com/gXLg/gXLg.github.io/blob/main/embed.html" style="color:#5865F2">Page source</a><br><br>
 <input class=in id=Token type=text placeholder=token><br>
 Bot token: <span style="display:inline-block" id=switch class=toggle onclick=toggle()></span><br>
 <span id=warning class=hide>
