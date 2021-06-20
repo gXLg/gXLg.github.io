@@ -46,7 +46,6 @@
     opacity : 1
   }
   #switch {
-    margin-top: 10px;
     height: 10px;
     width: 50px;
     background: #B6B7BB;
@@ -85,6 +84,13 @@
     width: 55%;
     margin-left: 14px
   }
+  #warning {
+    color: #ED4245;
+    font-size: small
+  }
+  #warning.hide {
+    display: none
+  }
 </style>
 <script>
 function send ( ) {
@@ -113,6 +119,12 @@ function send ( ) {
         .then ( j => alert ( "Error: " + j.message ))
   })
 }
+function toggle ( ) {
+  document.getElementById('switch')
+    .classList.toggle('toggle')
+  document.getElementById('warning')
+    .classList.toggle('hide')
+}
 </script>
 </head>
 <body>
@@ -123,7 +135,7 @@ Important note: do not enter your token<br>
 if you don't trust me!<br>
 <a href="https://github.com/gXLg/gXLg.github.io/blob/main/embed.html" style="color:#5865F2">Page source</a><br><br>
 <input class=in id=Token type=text placeholder=token><br>
-<span>Bot token (currently working on): <span style="display:inline-block" id=switch class=toggle onclick="document.getElementById('switch').classList.toggle('toggle')"></span></span><br>
+Bot token: <span style="display:inline-block" id=switch class=toggle onclick=toggle()></span><span id=warning class=hide></span><br>
 <input class=in id=Channel type=text placeholder=channelID><br>
 <input class=in id=Msg type=text placeholder=message><br>
 Color: <input class=inc id=Color type=color value="#3C3D42"><br>
