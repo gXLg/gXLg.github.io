@@ -163,23 +163,23 @@ function color2 ( ) {
 </script>
 </head>
 <body>
-<img src="https://raw.githubusercontent.com/gXLg/gXLg.github.io/main/discord.png"><br>
-<div style="font-size:0">
-  <input class=inc id=Token type=password placeholder="token (Bot)">
-  <span class=incb id=bot>
-    <span style="display:inline-block;margin-left:5px;vertical-align:middle" id=switch class=toggle onclick=toggle()>
+  <img src="https://raw.githubusercontent.com/gXLg/gXLg.github.io/main/discord.png"><br>
+  <div style="font-size:0">
+    <input class=inc id=Token type=password placeholder="token (Bot)">
+    <span class=incb id=bot>
+      <span style="display:inline-block;margin-left:5px;vertical-align:middle" id=switch class=toggle onclick=toggle()>
+      </span>
     </span>
+  </div>
+  <span id=warning class=hide>
+    Warning! This may violate the ToS of Discord.<br>
   </span>
-</div>
-<span id=warning class=hide>
-  Warning! This may violate the ToS of Discord.<br>
-</span>
-<input class=in id=Channel type=text placeholder=channelID><br>
-<div style="font-size:0">
-  <input class=inc id=Color type=text placeholder=Color onchange=color()>
-  <input class=incb id=ColorBox type=color value="#3C3D42" onchange=color2()>
-</div>
-<textarea rows=2 class=in id=Msg placeholder=message></textarea><br>
-<input class=sn type=button value=" send " onclick=send()>
+  <input class=in id=Channel type=text placeholder=channelID><br>
+  <div style="font-size:0">
+    <input class=inc id=Color type=text placeholder=Color onchange=color()>
+    <input class=incb id=ColorBox type=color value="#3C3D42" onchange=color2()>
+  </div>
+  <textarea rows=2 class=in id=Msg placeholder=message></textarea><br>
+  <input class=sn type=button value=" send " onclick=send()>
 </body>
 </html>
