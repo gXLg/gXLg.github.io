@@ -136,33 +136,33 @@
                              "<br>&#9734; " + a [ 1 ] + "</td></tr>"
           num ++
         })
-      }
-      function isv ( el ) {
-        var rect = el.getBoundingClientRect ( )
-        return (
-          rect.top >= 0 &&
-          rect.left >= 0 &&
-          rect.bottom <= ( window.innerHeight || document.documentElement.clientHeight ) &&
-          rect.right <= ( window.innerWidth || document.documentElement.clientWidth )
-        )
-      }
+          function isv ( el ) {
+          var rect = el.getBoundingClientRect ( )
+          return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= ( window.innerHeight || document.documentElement.clientHeight ) &&
+            rect.right <= ( window.innerWidth || document.documentElement.clientWidth )
+          )
+        }
 
-      function onv ( el, callback ) {
-        var old
-        return ( ) => {
-          var v = isv ( el )
-          if ( v != old ) {
-            old = v
-            callback ( )
+        function onv ( el, callback ) {
+          var old
+          return ( ) => {
+            var v = isv ( el )
+            if ( v != old ) {
+              old = v
+              callback ( )
+            }
           }
         }
-      }
 
-      var handler = onv ( document, ( ) => {
-        alert ( "Test" )
-      })
+        var handler = onv ( document.getElementById ( "list" ), ( ) => {
+          alert ( "Test" )
+        })
 
-      addEventListener ( "scroll", handler, false )
+        addEventListener ( "scroll", handler, false )
+     }
     </script>
   </head>
   <body>
