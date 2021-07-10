@@ -137,6 +137,32 @@
           num ++
         })
       }
+      function isv ( el ) {
+        var rect = el.getBoundingClientRect ( )
+        return (
+          rect.top >= 0 &&
+          rect.left >= 0 &&
+          rect.bottom <= ( window.innerHeight || document.documentElement.clientHeight ) &&
+          rect.right <= ( window.innerWidth || document.documentElement.clientWidth )
+        )
+      }
+
+      function onv ( el, callback ) {
+        var old
+        return ( ) => {
+          var v = isv ( el )
+          if ( v != old ) {
+            old = v
+            callback ( )
+          }
+        }
+      }
+
+      var handler = onv ( el, ( ) {
+        alert ( "Test", el )
+      })
+
+      addEventListener ( "scroll", handler, false )
     </script>
   </head>
   <body>
