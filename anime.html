@@ -163,7 +163,7 @@
               var v = isv ( el )
               if ( v != old [ i ]) {
                 old [ i ] = v
-                if ( v ) setTimeout ( ( ) => opaq ( el, 0 ), 25 )
+                if ( v ) opaq ( el, 0 )
                 else el.style.opacity = "0%"
               }
             }
