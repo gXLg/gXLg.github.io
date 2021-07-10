@@ -157,7 +157,8 @@
               var v = isv ( el )
               if ( v != old [ i ]) {
                 old [ i ] = v
-                alert ( i )
+                if ( v ) el
+                else el.style.opacity = "0%"
               }
             }
           }
