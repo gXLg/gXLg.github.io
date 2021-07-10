@@ -139,6 +139,12 @@
           num ++
         })
 
+        function opaq ( el, op ) {
+          var p = op * 40
+          el.style.opacity = p + "%"
+          if ( p < 100 ) setTimeout ( ( ) => opaq ( el, op + 25 ), 25 )
+        }
+
         function isv ( el ) {
           var rect = el.getBoundingClientRect ( )
           return (
@@ -157,7 +163,7 @@
               var v = isv ( el )
               if ( v != old [ i ]) {
                 old [ i ] = v
-                if ( v ) el
+                if ( v ) setTimeout ( ( ) => opaq ( el, 0 ), 25 )
                 else el.style.opacity = "0%"
               }
             }
