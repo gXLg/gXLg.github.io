@@ -130,13 +130,16 @@
         ]
         var table = document.getElementById ( "list" )
         var num = 1
+        var vis = { }
         anime.forEach ( a => {
-          table.innerHTML += "<tr><td class=num>#" + num +
-                             "</td><td class=name>" + a [ 0 ] +
+          vis [ num ] = false
+          table.innerHTML += "<tr id=" + num + "><td class=num>#" +
+                             num + "</td><td class=name>" + a [ 0 ] +
                              "<br>&#9734; " + a [ 1 ] + "</td></tr>"
           num ++
         })
-          function isv ( el ) {
+
+        function isv ( el ) {
           var rect = el.getBoundingClientRect ( )
           return (
             rect.top >= 0 &&
@@ -146,20 +149,21 @@
           )
         }
 
-        function onv ( el, callback ) {
-          var old
+        function onv ( ) {
+          var old = vis
           return ( ) => {
-            var v = isv ( el )
-            if ( v != old ) {
-              old = v
-              callback ( )
+            for ( var i = 1; i <= anime.length; i ++ ) {
+              var el = document.getElementById ( i )
+              var v = isv ( el )
+              if ( v != old [ i ]) {
+                old [ i ] = v
+                alert ( i )
+              }
             }
           }
         }
 
-        var handler = onv ( document.getElementById ( "list" ), ( ) => {
-          alert ( "Test" )
-        })
+        var handler = onv ( )
 
         addEventListener ( "scroll", handler, false )
      }
