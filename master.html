@@ -1,0 +1,205 @@
+<html>
+  <head>
+    <title>MasterMind</title>
+    <meta name=viewport content="width=device-width, initial-scale=1.0">
+    <style>
+      body {
+        background-color : #C7C8FF;
+        color : #2E032E;
+      }
+      .dot {
+        background-color : #C7C8FF;
+        width : 40px;
+        height : 40px;
+        border-radius : 50%;
+        display : inline-flex;
+        border : solid;
+      }
+      .b {
+        background-color : #000;
+        width : 20px;
+        height : 20px;
+        border-radius : 50%;
+        display : inline-flex;
+        border : solid;
+      }
+      .w {
+        background-color : #FFF;
+        width : 20px;
+        height : 20px;
+        border-radius : 50%;
+        display : inline-flex;
+        border : solid;
+      }
+      .hide {
+        display : none
+      }
+    </style>
+    <script>
+      var row = 0
+      var cell = 0
+      var code = [ ]
+      var guess = [ ]
+
+      function newgame ( ) {
+        for ( var r = 0; r < 10; r ++ )
+          for ( var c = 0; c < 4; c ++ )
+            document.getElementById ( r + "" + c ).style.backgroundColor = "#C7C8FF"
+        for ( var r = 0; r < 10; r ++ )
+          document.getElementById ( r ).innerHTML = ""
+        row = 0
+        cell = 0
+        code = [ ]
+        guess = [ ]
+        var pos = [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+        for ( var i = 0; i < 4; i ++ )
+          code.push ( pos.splice (
+            Math.floor ( Math.random ( ) * pos.length ), 1
+          ) [ 0 ])
+      }
+
+      function convert ( input ) {
+        var dict = [
+          "rgb(255, 252, 255)",
+          "rgb(137, 255, 135)",
+          "rgb(255, 243, 138)",
+          "rgb(138, 144, 255)",
+          "rgb(255, 143, 175)",
+          "rgb(242, 179, 255)",
+          "rgb(156, 109, 122)",
+          "rgb(46, 3, 46)"
+        ]
+        return input instanceof String ?
+               dict.indexOf ( input ) : dict [ input ]
+      }
+      function cl ( c ) {
+        if ( cell < 4 && ! guess.includes ( c )) {
+          var color = convert ( c )
+          var el = document.getElementById ( row + "" + cell ++ )
+          el.style.backgroundColor = color
+          guess.push ( c )
+        }
+      }
+      function de ( ) {
+        if ( cell > 0 ) {
+          cell --
+          var el = document.getElementById ( row + "" + cell )
+          el.style.backgroundColor = "#C7C8FF"
+          guess.pop ( )
+        }
+      }
+      function su ( ) {
+        if ( cell < 4 ) return
+        if ( row < 10 ) {
+          var black = 0
+          var white = 0
+          var b = ""
+          var w = ""
+          for ( var i = 0; i < 4; i ++ ) {
+            if ( guess [ i ] == code [ i ]) {
+              black ++
+              b += "<span class=b></span>"
+            } else if ( guess.includes ( code [ i ])) {
+              white ++
+              w += "<span class=w></span>"
+            }
+          }
+          document.getElementById ( row ).innerHTML = b + w
+          row ++
+          cell = 0
+          guess = [ ]
+          if ( black == 4 ) {
+            alert ( "You won!" )
+          }
+        } else {
+          alert ( "You lost" )
+          newgame ( )
+        }
+      }
+      window.onload = ( ) => {
+        newgame ( )
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Master Mind</h1>
+    <div>
+      <span class=dot id=90></span>
+      <span class=dot id=91></span>
+      <span class=dot id=92></span>
+      <span class=dot id=93></span>
+      <span class=out id=9></span><br>
+
+      <span class=dot id=80></span>
+      <span class=dot id=81></span>
+      <span class=dot id=82></span>
+      <span class=dot id=83></span>
+      <span class=out id=8></span><br>
+
+      <span class=dot id=70></span>
+      <span class=dot id=71></span>
+      <span class=dot id=72></span>
+      <span class=dot id=73></span>
+      <span class=out id=7></span><br>
+
+      <span class=dot id=60></span>
+      <span class=dot id=61></span>
+      <span class=dot id=62></span>
+      <span class=dot id=63></span>
+      <span class=out id=6></span><br>
+
+      <span class=dot id=50></span>
+      <span class=dot id=51></span>
+      <span class=dot id=52></span>
+      <span class=dot id=53></span>
+      <span class=out id=5></span><br>
+
+      <span class=dot id=40></span>
+      <span class=dot id=41></span>
+      <span class=dot id=42></span>
+      <span class=dot id=43></span>
+      <span class=out id=4></span><br>
+
+      <span class=dot id=30></span>
+      <span class=dot id=31></span>
+      <span class=dot id=32></span>
+      <span class=dot id=33></span>
+      <span class=out id=3></span><br>
+
+      <span class=dot id=20></span>
+      <span class=dot id=21></span>
+      <span class=dot id=22></span>
+      <span class=dot id=23></span>
+      <span class=out id=2></span><br>
+
+      <span class=dot id=10></span>
+      <span class=dot id=11></span>
+      <span class=dot id=12></span>
+      <span class=dot id=13></span>
+      <span class=out id=1></span><br>
+
+      <span class=dot id=00></span>
+      <span class=dot id=01></span>
+      <span class=dot id=02></span>
+      <span class=dot id=03></span>
+      <span class=out id=0></span><br><br>
+    </div>
+    <input type=button value="New game" onclick="newgame()">
+    <input type=button value="Delete" onclick="de()">
+    <input type=button value="Submit" onclick="su()">
+    <input type=button value="?" onclick="document.getElementById('info').classList.toggle('hide')">
+
+    <br><br>
+    <span class=dot id=i0 style="background-color:#FFFCFF" onclick="cl(0)"></span>
+    <span class=dot id=i1 style="background-color:#89FF87" onclick="cl(1)"></span>
+    <span class=dot id=i2 style="background-color:#FFF38A" onclick="cl(2)"></span>
+    <span class=dot id=i3 style="background-color:#8A90FF" onclick="cl(3)"></span><br>
+
+    <span class=dot id=i4 style="background-color:#FF8FAF" onclick="cl(4)"></span>
+    <span class=dot id=i5 style="background-color:#F2B3FF" onclick="cl(5)"></span>
+    <span class=dot id=i6 style="background-color:#9C6D7A" onclick="cl(6)"></span>
+    <span class=dot id=i7 style="background-color:#2E032E" onclick="cl(7)"></span><br><br>
+    <p class=hide id=info>Game information on <a href="https://en.m.wikipedia.org/wiki/Mastermind_(board_game)">Wikipedia</a>.
+    This game is being played without repititive colors, 8 colors in total and 10 guesses allowed</p>
+  </body>
+</html>
