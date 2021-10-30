@@ -16,7 +16,7 @@ function create(x, y, m, vx, vy){
                  "<br>m:", m, "<br>vx:", vx, "<br>vy:", vy].join(" ");
   l.innerHTML += "<br><input type=button value=remove onclick=remove(" + n + ")><br><br>";
 
-  document.getElementById("l~").appendChild(l);
+  document.getElementById("l").appendChild(l);
 
   document.getElementById("f").appendChild(el);
   let obj = {x, y, m, vx, vy, ax: 0, ay: 0, el, l};
