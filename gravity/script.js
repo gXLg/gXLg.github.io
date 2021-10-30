@@ -2,6 +2,7 @@ let objs = [];
 let n = 0;
 let mx = 300;
 let my = 300;
+let rebound = 100;
 
 function create(x, y, m, vx, vy){
   let el = document.createElement("span");
@@ -15,7 +16,7 @@ function create(x, y, m, vx, vy){
                  "<br>m:", m, "<br>vx:", vx, "<br>vy:", vy].join(" ");
   l.innerHTML += "<br><input type=button value=remove onclick=remove(" + n + ")><br><br>";
 
-  document.getElementById("l").appendChild(l);
+  document.getElementById("l~").appendChild(l);
 
   document.getElementById("f").appendChild(el);
   let obj = {x, y, m, vx, vy, ax: 0, ay: 0, el, l};
@@ -121,11 +122,11 @@ function physic(){
 
     if(obj.x <= 0 || obj.x >= mx){
       obj.x = clx(obj.x);
-      obj.vx = - obj.vx;
+      obj.vx = - obj.vx * rebound / 100;
     }
     if(obj.y <= 0 || obj.y >= my){
       obj.y = cly(obj.y);
-      obj.vy = - obj.vy;
+      obj.vy = - obj.vy * rebound / 100;
     }
 
     draw(obj);
@@ -184,5 +185,7 @@ window.onload = () => {
   let field = document.getElementById("f");
   field.style.width = mx;
   field.style.height = my;
+  let r = params.get("rebound");
+  if(r) rebound = Number(r);
 };
 
