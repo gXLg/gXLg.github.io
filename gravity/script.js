@@ -84,8 +84,8 @@ function collide(){
 
     let fx = obj.m * obj.ax + fobj.m * fobj.ax;
     let fy = obj.m * obj.ay + fobj.m * fobj.ay;
-    let ax = fx * m;
-    let ay = fy * m;
+    let ax = fx / m;
+    let ay = fy / m;
 
     create(x, y, m, ax, ay);
   }
