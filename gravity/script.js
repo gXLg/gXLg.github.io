@@ -4,7 +4,7 @@ let mx = 300;
 let my = 300;
 let rebound = 100;
 
-function create(x, y, m, vx, vy){
+function create(x, y, m, vx, vy, ax = 0, ay = 0){
   let el = document.createElement("span");
   el.innerHTML = m;
   el.id = n;
@@ -19,7 +19,7 @@ function create(x, y, m, vx, vy){
   document.getElementById("l").appendChild(l);
 
   document.getElementById("f").appendChild(el);
-  let obj = {x, y, m, vx, vy, ax: 0, ay: 0, el, l};
+  let obj = {x, y, m, vx, vy, ax, ay, el, l};
   objs.push(obj);
   n ++;
 }
@@ -27,7 +27,7 @@ function create(x, y, m, vx, vy){
 function draw(obj){
   obj.el.style.left = obj.x - 5;
   obj.el.style.top = obj.y - 5;
-  obj.innerHTML = obj.m;
+  obj.el.innerHTML = obj.m;
   obj.l.innerHTML = ["id:", obj.el.id, "<br>x:", obj.x, "<br>y:", obj.y,
                      "<br>m:", obj.m, "<br>vx:", obj.vx, "<br>vy:", obj.vy].join(" ");
   obj.l.innerHTML += "<br><input type=button value=remove onclick=remove(" + obj.el.id + ")><br><br>";
@@ -173,6 +173,87 @@ function add(){
   create(x, y, m, vx, vy);
 }
 
+function convertBase(str, fromBase, toBase) {
+
+  const DIGITS = "0123456789!_.-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ()*<>[]@^:";
+
+  const add = (x, y, base) => {
+    let z = [];
+    const n = Math.max(x.length, y.length);
+    let carry = 0;
+    let i = 0;
+    while (i < n || carry) {
+      const xi = i < x.length ? x[i] : 0;
+      const yi = i < y.length ? y[i] : 0;
+      const zi = carry + xi + yi;
+      z.push(zi % base);
+      carry = Math.floor(zi / base);
+      i++;
+    }
+    return z;
+  }
+
+  const multiplyByNumber = (num, x, base) => {
+    if (num < 0) return null;
+    if (num == 0) return [];
+
+    let result = [];
+    let power = x;
+    while (true) {
+      num & 1 && (result = add(result, power, base));
+      num = num >> 1;
+      if (num === 0) break;
+      power = add(power, power, base);
+    }
+
+    return result;
+  }
+
+  const parseToDigitsArray = (str, base) => {
+    const digits = str.split('');
+    let arr = [];
+    for (let i = digits.length - 1; i >= 0; i--) {
+      const n = DIGITS.indexOf(digits[i])
+      if (n == -1) return null;
+      arr.push(n);
+    }
+    return arr;
+  }
+
+  const digits = parseToDigitsArray(str, fromBase);
+  if (digits === null) return null;
+
+  let outArray = [];
+  let power = [1];
+  for (let i = 0; i < digits.length; i++) {
+    digits[i] && (outArray = add(outArray, multiplyByNumber(digits[i], power, toBase), toBase));
+    power = multiplyByNumber(fromBase, power, toBase);
+  }
+
+  let out = '';
+  for (let i = outArray.length - 1; i >= 0; i--)
+    out += DIGITS[outArray[i]];
+
+  return out;
+}
+
+function compress(){
+  let e = [];
+  for(let obj of objs){
+    let d = [];
+    for(let i in obj){
+      if(i == "el" || i == "l") continue
+      d.push(obj[i]);
+    }
+    e.push(d.join("!"));
+  }
+  let c = e.join("_");
+  c = convertBase(c, 14, 76);
+  let del = window.location.search.length ? "&" : "?"
+  let url =  window.location + del + "planets=" + c;
+  document.getElementById("s").value = url;
+}
+
 window.onload = () => {
   let params = new URLSearchParams(window.location.search);
   let m = params.get("max");
@@ -187,5 +268,15 @@ window.onload = () => {
   field.style.height = my;
   let r = params.get("rebound");
   if(r) rebound = Number(r);
+  let p = params.get("planets");
+  if(p){
+    p = convertBase(p, 76, 14);
+    let e = p.split("_");
+    for(let i of e){
+      let d = i.split("!");
+      d = d.map(el => Number(el));
+      create(...d);
+    }
+  }
 };
 
