@@ -22,7 +22,7 @@
         border-radius: 50%;
         display: inline-flex;
       }
-      input[type=text] {
+      input[type=text]:not([id=s]) {
         width: 90px;
       }
     </style>
@@ -31,7 +31,9 @@
 
   <body>
     <div class=field id=f></div>
-    <input type=button id=b value=play onclick=play()><br><br>
+    <input type=button id=b value=play onclick=play()>
+    <input type=button value=share onclick=compress()>
+    <input type=text id=s readonly><br><br>
     x: <input type=text id=x>
     y: <input type=text id=y><br>
     m: <input type=text id=m><br>
