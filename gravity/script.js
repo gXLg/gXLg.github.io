@@ -175,7 +175,7 @@ function add(){
 
 function convertBase(str, fromBase, toBase) {
 
-  const DIGITS = "0123456789!_.-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ()*~$@:";
+  const DIGITS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-.";
   const add = (x, y, base) => {
     let z = [];
     const n = Math.max(x.length, y.length);
@@ -244,14 +244,14 @@ function compress(){
       if(i == "el" || i == "l") continue
       d.push(obj[i]);
     }
-    e.push(d.join("!"));
+    e.push(d.join("a"));
   }
-  let c = e.join("_");
-  c = convertBase(c, 14, 76);
+  let c = e.join("b");
+  c = convertBase(c, 14, 64);
   let params = new URLSearchParams(window.location.search);
   params.set("planets", c);
   let url = window.location.toString().split("?")[0]
-  document.getElementById("s").value = url + "?" + params;
+  document.getElementById("s").value = url + "?" + params.toString();
 }
 
 window.onload = () => {
@@ -270,12 +270,13 @@ window.onload = () => {
   if(r) rebound = Number(r);
   let p = params.get("planets");
   if(p){
-    p = convertBase(p, 76, 14);
-    let e = p.split("_");
+    p = convertBase(p, 64, 14);
+    let e = p.split("b");
     for(let i of e){
-      let d = i.split("!");
+      let d = i.split("a");
       d = d.map(el => Number(el));
       create(...d);
     }
   }
 };
+
