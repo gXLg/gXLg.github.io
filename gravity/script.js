@@ -175,7 +175,7 @@ function add(){
 
 function convertBase(str, fromBase, toBase) {
 
-  const DIGITS = "0123456789!_.-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ()*<>[]@^:";
+  const DIGITS = "0123456789!_.-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ()*~$[]@^:";
 
   const add = (x, y, base) => {
     let z = [];
