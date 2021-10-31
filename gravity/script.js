@@ -249,9 +249,10 @@ function compress(){
   }
   let c = e.join("_");
   c = convertBase(c, 14, 76);
-  let del = window.location.search.length ? "&" : "?"
-  let url =  window.location + del + "planets=" + c;
-  document.getElementById("s").value = url;
+  let params = new URLSearchParams(window.location.search);
+  params.set("planets", c);
+  let url = window.location.toString().split("?")[0]
+  document.getElementById("s").value = url + "?" + params;
 }
 
 window.onload = () => {
@@ -279,4 +280,3 @@ window.onload = () => {
     }
   }
 };
-
