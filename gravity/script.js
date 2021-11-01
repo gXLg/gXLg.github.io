@@ -12,7 +12,6 @@ function create(x, y, m, vx, vy, ax = 0, ay = 0){
   el.style.top = y - 5;
 
   let l = document.createElement("div");
-  alert("fu");
   l.innerHTML = ["x:", x, "<br>y:", y, "<br>m:", m,
                  "<br>vx:", vx, "<br>vy:", vy].join(" ");
   l.innerHTML += "<br><input type=button value=remove onclick=remove(" + n + ")><br><br>";
