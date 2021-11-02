@@ -3,6 +3,7 @@ let n = 0;
 let mx = 300;
 let my = 300;
 let rebound = 100;
+let planet = 0;
 
 function create(x, y, m, vx, vy, ax = 0, ay = 0){
   let el = document.createElement("span");
@@ -113,6 +114,9 @@ function physic(){
       obj.ay += Math.cos(gamma) * a;
 
     }
+
+    let r = my * 2 - obj.y;
+    obj.ay += planet / ( r * r )
 
     obj.vx += obj.ax;
     obj.vy += obj.ay;
@@ -278,4 +282,6 @@ window.onload = () => {
       create(...d);
     }
   }
+  let g = params.get("ground");
+  if(g) planet = Number(g);
 };
