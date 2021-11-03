@@ -15,14 +15,18 @@
         border-style: solid;
       }
       span {
-        position: relative;
+        position: absolute;
         width: 5px;
         height: 5px;
         background: #000;
         border-radius: 50%;
         display: inline-flex;
       }
-      input[type=text]:not([id=s]) {
+      .print {
+        width: 3px;
+        height: 3px;
+      }
+      input[type=text]:not(#s) {
         width: 90px;
       }
     </style>
@@ -30,7 +34,7 @@
   </head>
 
   <body>
-    <div class=field id=f></div>
+    <div style="position: relative;" class=field id=f></div>
     <input type=button id=b value=play onclick=play()>
     <input type=button value=share onclick=compress()>
     <input type=text id=s readonly><br><br>
