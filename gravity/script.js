@@ -1,34 +1,51 @@
 let objs = [];
 let n = 0;
+let show = 0;
+
 let mx = 300;
 let my = 300;
+
 let rebound = 100;
+
 let planet = 0;
+
+let prints = [];
+let printlife = 100;
+let doprints = 1;
+
 
 function create(x, y, m, vx, vy, ax = 0, ay = 0){
   let el = document.createElement("span");
-  el.innerHTML = m;
+  if(show) el.innerHTML = m;
   el.id = n;
   el.style.left = x - 5;
   el.style.top = y - 5;
+  document.getElementById("f").appendChild(el);
 
   let l = document.createElement("div");
   l.innerHTML = ["x:", x, "<br>y:", y, "<br>m:", m,
                  "<br>vx:", vx, "<br>vy:", vy].join(" ");
   l.innerHTML += "<br><input type=button value=remove onclick=remove(" + n + ")><br><br>";
-
   document.getElementById("l").appendChild(l);
 
-  document.getElementById("f").appendChild(el);
   let obj = {x, y, m, vx, vy, ax, ay, el, l};
   objs.push(obj);
   n ++;
 }
 
 function draw(obj){
+  if(doprints){
+    let el = document.createElement("span");
+    el.style.left = obj.x - 5;
+    el.style.top = obj.y - 5;
+    el.classList.toggle("print");
+    document.getElementById("f").appendChild(el);
+    let life = printlife;
+    let print = { el, life };
+    prints.push(print);
+  }
   obj.el.style.left = obj.x - 5;
   obj.el.style.top = obj.y - 5;
-  obj.el.innerHTML = obj.m;
   obj.l.innerHTML = ["x:", obj.x, "<br>y:", obj.y, "<br>m:", obj.m,
                      "<br>vx:", obj.vx, "<br>vy:", obj.vy].join(" ");
   obj.l.innerHTML += "<br><input type=button value=remove onclick=remove(" + obj.el.id + ")><br><br>";
@@ -96,6 +113,16 @@ function collide(){
 
 function physic(){
   collide();
+
+  if(doprints){
+    prints = prints.filter(print => {
+      print.el.style.opacity = print.life / printlife;
+      if(-- print.life) return true;
+      print.el.parentNode.removeChild(print.el);
+      return false;
+    });
+  }
+
   for(let obj of objs){
     obj.ax = 0;
     obj.ay = 0;
@@ -115,8 +142,7 @@ function physic(){
 
     }
 
-    let r = my * 2 - obj.y;
-    obj.ay += planet / ( r * r )
+    obj.ay += planet;
 
     obj.vx += obj.ax;
     obj.vy += obj.ay;
@@ -262,8 +288,8 @@ window.onload = () => {
   let params = new URLSearchParams(window.location.search);
   let m = params.get("max");
   if(m){
-    let x = m.split(":")[0];
-    let y = m.split(":")[1];
+    let x = m.split("_")[0];
+    let y = m.split("_")[1];
     if(x) mx = Number(x);
     if(y) my = Number(y);
   }
@@ -284,4 +310,8 @@ window.onload = () => {
   }
   let g = params.get("ground");
   if(g) planet = Number(g);
+  let s = params.get("show");
+  if(s) show = Number(s);
+  let pr = params.get("prints");
+  if(pr) doprints = Number(pr);
 };
