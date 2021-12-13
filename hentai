@@ -1,0 +1,13 @@
+<html>
+  <body>
+    <img id=0 src="undefined">
+    <script>
+      (async () => {
+        const img = document.getElementById(0);
+        const response = await fetch("https://nekos.life/api/v2/img/nsfw_neko_gif", {method: "GET"});
+        const url = (await response.json()).url;
+        img.src = url;
+      })()
+    </script>
+  </body>
+</html>
