@@ -1,0 +1,114 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name=viewport content="width=device-width, initial-scale=1.0">
+    <title>Пользовательское соглашение</title>
+    <style>
+      body {
+        background: #2c2f33;
+      }
+      .text {
+        font-family: Roboto;
+        color: #FFFFFF;
+      }
+      .line {
+        background: #AAC352;
+        width: 3px;
+        border-radius: 10px 0px 0px 10px;
+      }
+      .embed {
+        background: #23272A;
+        padding: 10px;
+        border-radius: 0px 10px 10px 0px;
+        font-size: 14px;
+        //white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+      .message {
+        //
+      }
+      .author {
+        padding-top: 5px;
+        padding-left: 5px;
+        vertical-align: top;
+        font-size: 19px;
+      }
+      .avatar {
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+      }
+      .container {
+        display: inline-block;
+      }
+      #date {
+        font-size: 12px;
+        color: #72777D;
+      }
+      .code {
+        font-family: Monospace;
+        background: #121619;
+      }
+      .bot {
+        background: #5764F1;
+        padding: 3px;
+        font-size: 9px;
+        margin: 5px;
+        border-radius: 3px;
+      }
+    </style>
+    <script>
+      window.onload = () => {
+        const e = document.getElementById("date");
+        const d = new Date();
+        const month = [
+          "Jan", "Feb", "Mar", "Apr",
+          "May", "Jun", "Jul", "Aug",
+          "Sep", "Oct", "Nov", "Dec"
+        ][d.getMonth()];
+        const string = d.getDate() + " " + month + " " + d.getFullYear() +
+                       " " + d.getHours() + ":" + d.getMinutes();
+        e.innerHTML = string;
+      };
+    </script>
+  </head>
+  <body>
+    <table class="message text">
+      <tr>
+        <td>
+          <img class="avatar" src="https://cdn.discordapp.com/avatars/695414653794254858/1afc0b2888a656315f95a0d45c30d9ca.webp?size=240">
+        </td>
+        <td class="author">
+          чонкер
+          <span class="bot">
+            <svg width="16" height="16" viewBox="0 -4 16 15.2">
+              <path d="M7.4,11.17,4,8.62,5,7.26l2,1.53L10.64,4l1.36,1Z" fill="currentColor"></path>
+            </svg>
+            BOT
+          </span>
+          <span id="date">Now</span>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <table class="text" cellspacing=0>
+            <tr>
+              <td class="line"></td>
+              <td class="embed">
+                <b>Использование данных</b><br>
+                Чонкер просматривает твои сообщения, чтобы отвечать на команды.
+                Чонкер не сохраняет содержание твоих сообщений никаким образом.
+                При использовании команды <span class="code">>_do</span> код,
+                набранный тобою, будет сохранён для выполнения и удалён после
+                двух часов неактивности. Также для выполнения кода создаётся
+                приватная среда с названием твоего пользовательского id.<br>
+                Используя чонкера, ты соглашаешься с вышеназванными условиями.
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
