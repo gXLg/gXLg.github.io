@@ -5,7 +5,7 @@
     <script>
       const params = new URLSearchParams(window.location.search);
       const div = document.getElementById("args");
-      for(let p in params.entries()){
+      for(let p of params.keys()){
         div.innerHTML += p + " = '" + params.get(p) + "'<br>"
       }
     </script>
