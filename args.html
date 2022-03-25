@@ -1,0 +1,13 @@
+<html>
+  <head><title>Simple url args</title></head>
+  <body>
+    <div id="args"></div>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const div = document.getElementById("args");
+      for(let p in params){
+        div.innerHTML += p + " = '" + params[p] + "'<br>"
+      }
+    </script>
+  </body>
+</html>
