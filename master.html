@@ -16,8 +16,8 @@
         border: solid;
       }
       .s {
-        width: 20px;
-        height: 20px;
+        width: 15px;
+        height: 15px;
         border-radius: 50%;
         display: inline-flex;
         border: solid;
@@ -84,18 +84,24 @@
         if(row < 10){
           let black = 0;
           let white = 0;
-          let b = "";
-          let w = "";
+          const b = [];
+          const w = [];
           for(let i = 0; i < 4; i ++){
             if(guess[i] == code[i]){
               black ++;
-              b += "<span class=\"b s\"></span>"
+              b.push("<span class=\"b s\"></span>");
             } else if(guess.includes(code[i])){
               white ++;
-              w += "<span class=\"w s\"></span>"
+              w.push("<span class=\"w s\"></span>");
             }
           }
-          document.getElementById(row).innerHTML = b + w;
+          const bw = b.concat(w).concat(Array(4 - black - white).fill("<span class=s></span>"));
+          const table = "<table cellspacing=0><tr><td>" + bw[0] +
+            "</td><td>" + bw[1] +
+            "</td></tr><tr><td>" + bw[2] +
+            "</td><td>" + bw[3] +
+            "</td></tr></table>";
+          document.getElementById(row).innerHTML = table;
           row ++;
           cell = 0;
           guess = [];
@@ -117,65 +123,118 @@
   <body>
     <h1>Master Mind</h1>
     <div>
-      <span class=dot id=90></span>
-      <span class=dot id=91></span>
-      <span class=dot id=92></span>
-      <span class=dot id=93></span>
-      <span class=out id=9></span><br>
-
-      <span class=dot id=80></span>
-      <span class=dot id=81></span>
-      <span class=dot id=82></span>
-      <span class=dot id=83></span>
-      <span class=out id=8></span><br>
-
-      <span class=dot id=70></span>
-      <span class=dot id=71></span>
-      <span class=dot id=72></span>
-      <span class=dot id=73></span>
-      <span class=out id=7></span><br>
-
-      <span class=dot id=60></span>
-      <span class=dot id=61></span>
-      <span class=dot id=62></span>
-      <span class=dot id=63></span>
-      <span class=out id=6></span><br>
-
-      <span class=dot id=50></span>
-      <span class=dot id=51></span>
-      <span class=dot id=52></span>
-      <span class=dot id=53></span>
-      <span class=out id=5></span><br>
-
-      <span class=dot id=40></span>
-      <span class=dot id=41></span>
-      <span class=dot id=42></span>
-      <span class=dot id=43></span>
-      <span class=out id=4></span><br>
-
-      <span class=dot id=30></span>
-      <span class=dot id=31></span>
-      <span class=dot id=32></span>
-      <span class=dot id=33></span>
-      <span class=out id=3></span><br>
-
-      <span class=dot id=20></span>
-      <span class=dot id=21></span>
-      <span class=dot id=22></span>
-      <span class=dot id=23></span>
-      <span class=out id=2></span><br>
-
-      <span class=dot id=10></span>
-      <span class=dot id=11></span>
-      <span class=dot id=12></span>
-      <span class=dot id=13></span>
-      <span class=out id=1></span><br>
-
-      <span class=dot id=00></span>
-      <span class=dot id=01></span>
-      <span class=dot id=02></span>
-      <span class=dot id=03></span>
-      <span class=out id=0></span><br><br>
+      <table cellspacing=0>
+        <tr>
+          <td>
+            <span class=dot id=90></span>
+            <span class=dot id=91></span>
+            <span class=dot id=92></span>
+            <span class=dot id=93></span>
+          </td>
+          <td>
+            <span class=out id=9></span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class=dot id=80></span>
+            <span class=dot id=81></span>
+            <span class=dot id=82></span>
+            <span class=dot id=83></span>
+          </td>
+          <td>
+            <span class=out id=8></span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class=dot id=70></span>
+            <span class=dot id=71></span>
+            <span class=dot id=72></span>
+            <span class=dot id=73></span>
+          </td>
+          <td>
+            <span class=out id=7></span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class=dot id=60></span>
+            <span class=dot id=61></span>
+            <span class=dot id=62></span>
+            <span class=dot id=63></span>
+          </td>
+          <td>
+            <span class=out id=6></span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class=dot id=50></span>
+            <span class=dot id=51></span>
+            <span class=dot id=52></span>
+            <span class=dot id=53></span>
+          </td>
+          <td>
+            <span class=out id=5></span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class=dot id=40></span>
+            <span class=dot id=41></span>
+            <span class=dot id=42></span>
+            <span class=dot id=43></span>
+          </td>
+          <td>
+            <span class=out id=4></span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class=dot id=30></span>
+            <span class=dot id=31></span>
+            <span class=dot id=32></span>
+            <span class=dot id=33></span>
+          </td>
+          <td>
+            <span class=out id=3></span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class=dot id=20></span>
+            <span class=dot id=21></span>
+            <span class=dot id=22></span>
+            <span class=dot id=23></span>
+          </td>
+          <td>
+            <span class=out id=2></span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class=dot id=10></span>
+            <span class=dot id=11></span>
+            <span class=dot id=12></span>
+            <span class=dot id=13></span>
+          </td>
+          <td>
+            <span class=out id=1></span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class=dot id=00></span>
+            <span class=dot id=01></span>
+            <span class=dot id=02></span>
+            <span class=dot id=03></span>
+          </td>
+          <td>
+            <span class=out id=0></span>
+          </td>
+        </tr>
+      </table>
     </div>
     <input type=button value="New game" onclick="newgame()">
     <input type=button value="Delete" onclick="de()">
