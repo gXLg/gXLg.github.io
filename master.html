@@ -4,62 +4,53 @@
     <meta name=viewport content="width=device-width, initial-scale=1.0">
     <style>
       body {
-        background-color : #C7C8FF;
-        color : #2E032E;
+        background-color: #C7C8FF;
+        color: #2E032E;
       }
       .dot {
-        background-color : #C7C8FF;
-        width : 40px;
-        height : 40px;
-        border-radius : 50%;
-        display : inline-flex;
-        border : solid;
+        background-color: #C7C8FF;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: inline-flex;
+        border: solid;
       }
-      .b {
-        background-color : #000;
-        width : 20px;
-        height : 20px;
-        border-radius : 50%;
-        display : inline-flex;
-        border : solid;
+      .s {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: inline-flex;
+        border: solid;
       }
-      .w {
-        background-color : #FFF;
-        width : 20px;
-        height : 20px;
-        border-radius : 50%;
-        display : inline-flex;
-        border : solid;
-      }
-      .hide {
-        display : none
-      }
+      .b { background-color: #000; }
+      .w { background-color: #FFF; }
+      .hide { display: none; }
     </style>
     <script>
-      var row = 0
-      var cell = 0
-      var code = [ ]
-      var guess = [ ]
+      let row = 0;
+      let cell = 0;
+      let win = false;
+      let code = [];
+      let guess = [];
 
-      function newgame ( ) {
-        for ( var r = 0; r < 10; r ++ )
-          for ( var c = 0; c < 4; c ++ )
-            document.getElementById ( r + "" + c ).style.backgroundColor = "#C7C8FF"
-        for ( var r = 0; r < 10; r ++ )
-          document.getElementById ( r ).innerHTML = ""
-        row = 0
-        cell = 0
-        code = [ ]
-        guess = [ ]
-        var pos = [ 0, 1, 2, 3, 4, 5, 6, 7 ]
-        for ( var i = 0; i < 4; i ++ )
-          code.push ( pos.splice (
-            Math.floor ( Math.random ( ) * pos.length ), 1
-          ) [ 0 ])
+      function newgame(){
+        for(let r = 0; r < 10; r ++)
+          for(let c = 0; c < 4; c ++)
+            document.getElementById(r + "" + c ).style.backgroundColor = "#C7C8FF";
+        for(let r = 0; r < 10; r ++)
+          document.getElementById(r).innerHTML = "";
+        row = 0;
+        cell = 0;
+        win = false;
+        code = [];
+        guess = [];
+        const pos = [0, 1, 2, 3, 4, 5, 6, 7];
+        for(let i = 0; i < 4; i ++)
+          code.push(pos.splice(Math.floor(Math.random() * pos.length), 1)[0]);
       }
 
-      function convert ( input ) {
-        var dict = [
+      function convert(input){
+        const dict = [
           "rgb(255, 252, 255)",
           "rgb(137, 255, 135)",
           "rgb(255, 243, 138)",
@@ -68,56 +59,58 @@
           "rgb(242, 179, 255)",
           "rgb(156, 109, 122)",
           "rgb(46, 3, 46)"
-        ]
+        ];
         return input instanceof String ?
-               dict.indexOf ( input ) : dict [ input ]
+               dict.indexOf(input) : dict[input];
       }
-      function cl ( c ) {
-        if ( cell < 4 && ! guess.includes ( c )) {
-          var color = convert ( c )
-          var el = document.getElementById ( row + "" + cell ++ )
-          el.style.backgroundColor = color
-          guess.push ( c )
+      function cl(c){
+        if(cell < 4 && row < 10 && ! guess.includes(c) && ! win){
+          const color = convert(c);
+          const el = document.getElementById(row + "" + cell ++);
+          el.style.backgroundColor = color;
+          guess.push(c);
         }
       }
-      function de ( ) {
-        if ( cell > 0 ) {
-          cell --
-          var el = document.getElementById ( row + "" + cell )
-          el.style.backgroundColor = "#C7C8FF"
-          guess.pop ( )
+      function de(){
+        if(cell > 0){
+          cell --;
+          const el = document.getElementById(row + "" + cell);
+          el.style.backgroundColor = "#C7C8FF";
+          guess.pop();
         }
       }
-      function su ( ) {
-        if ( cell < 4 ) return
-        if ( row < 10 ) {
-          var black = 0
-          var white = 0
-          var b = ""
-          var w = ""
-          for ( var i = 0; i < 4; i ++ ) {
-            if ( guess [ i ] == code [ i ]) {
-              black ++
-              b += "<span class=b></span>"
-            } else if ( guess.includes ( code [ i ])) {
-              white ++
-              w += "<span class=w></span>"
+      function su(){
+        if(cell < 4) return;
+        if(row < 10){
+          let black = 0;
+          let white = 0;
+          let b = "";
+          let w = "";
+          for(let i = 0; i < 4; i ++){
+            if(guess[i] == code[i]){
+              black ++;
+              b += "<span class=\"b s\"></span>"
+            } else if(guess.includes(code[i])){
+              white ++;
+              w += "<span class=\"w s\"></span>"
             }
           }
-          document.getElementById ( row ).innerHTML = b + w
-          row ++
-          cell = 0
-          guess = [ ]
-          if ( black == 4 ) {
-            alert ( "You won!" )
+          document.getElementById(row).innerHTML = b + w;
+          row ++;
+          cell = 0;
+          guess = [];
+          if(black == 4){
+            alert("You won! You are very smart!");
+            win = true;
           }
-        } else {
-          alert ( "You lost, the combination was " + code )
-          newgame ( )
+        }
+        if(row == 10 && ! win){
+          row ++;
+          alert("You lost, the combination was " + code);
         }
       }
-      window.onload = ( ) => {
-        newgame ( )
+      window.onload = () => {
+        newgame();
       }
     </script>
   </head>
