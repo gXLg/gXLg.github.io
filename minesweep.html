@@ -131,6 +131,8 @@
         marks = marks.filter(m =>
           !(m[0] == x && m[1] == y)
         );
+        document.getElementById("m")
+          .innerHTML = mines.length - marks.length;
         if(count == 0){
           p.value = " ";
           for(const dx of [- 1, 0, 1])
