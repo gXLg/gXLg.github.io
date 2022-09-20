@@ -128,6 +128,9 @@
 
         const p = document.getElementById(x + "_" + y);
         p.style.backgroundColor = "white";
+        marks = marks.filter(m =>
+          !(m[0] == x && m[1] == y)
+        );
         if(count == 0){
           p.value = " ";
           for(const dx of [- 1, 0, 1])
