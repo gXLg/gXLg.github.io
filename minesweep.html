@@ -86,7 +86,7 @@
         if(!began){
           marks = [];
           mines = [];
-          for(let i = 0; i < Math.floor(w * h / 4); i ++){
+          for(let i = 0; i < Math.floor(w * h / 5); i ++){
             const j = Math.random() * select.length;
             mines.push(select.splice(j, 1)[0]);
           }
