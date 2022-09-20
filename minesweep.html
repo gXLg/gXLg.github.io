@@ -15,6 +15,7 @@
     <script>
       let w;
       let h;
+      let pr;
       let began = false;
       let open = true;
       let boom = false;
@@ -29,6 +30,8 @@
         w = (w > 2 && w < 30) ? w : 10;
         h = parseInt(params.get("h"));
         h = (h > 2 && h < 30) ? h : 10;
+        pr = parseInt(params.get("p"));
+        pr = (pr > 5 && pr < 90) ? pr : 10;
         
         const rows = [];
         select = [];
@@ -86,7 +89,7 @@
         if(!began){
           marks = [];
           mines = [];
-          for(let i = 0; i < Math.floor(w * h / 5); i ++){
+          for(let i = 0; i < Math.floor(w * h * pr / 100); i ++){
             const j = Math.random() * select.length;
             mines.push(select.splice(j, 1)[0]);
           }
