@@ -1,0 +1,166 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+      .c[type="button"] {
+        border-style: solid;
+        width: 8vmin;
+        height: 8vmin;
+        margin: 1px;
+        background-color: grey;
+      }
+    </style>
+
+    <script>
+      let w;
+      let h;
+      let began = false;
+      let open = true;
+      let boom = false;
+      let select;
+      let mines;
+      let marks;
+      let time;
+
+      window.onload = () => {
+        const params = new URL(document.location).searchParams;
+        w = parseInt(params.get("w"));
+        w = (w > 2 && w < 30) ? w : 10;
+        h = parseInt(params.get("h"));
+        h = (h > 2 && h < 30) ? h : 10;
+        
+        const rows = [];
+        select = [];
+        for(let y = 0; y < h; y ++){
+          let row = "";
+          for(let x = 0; x < w; x ++){
+            row += "<input type=button class=c onclick=cl(" +
+                   x + "," + y + ") id=" +
+                   x + "_" + y + " value=' '>";
+            select.push([x, y]);
+          }
+          rows.push(row);
+        }
+        const div = document.getElementById("game");
+        div.innerHTML = rows.join("<br>");
+      };
+
+      async function cl(x, y, state){
+        if(boom) return;
+        if(x < 0 || x >= w) return;
+        if(y < 0 || y >= h) return;
+
+        const l = select.length;
+        select = select.filter(a =>
+          !(a[0] == x && a[1] == y)
+        );
+        if(select.length == l) return;
+
+        if(!open){
+          select.push([x, y]);
+          if(state) return;
+
+          const l = marks.length;
+          marks = marks.filter(m =>
+            !(m[0] == x && m[1] == y)
+          );
+          let color, value;
+          if(marks.length == l){
+            color = "yellow";
+            value = "F";
+            marks.push([x, y]);
+          } else {
+            color = "grey";
+            value = " ";
+          }
+
+          const p = document.getElementById(x + "_" + y)
+          p.style.backgroundColor  = color;
+          p.value = value;
+          document.getElementById("m")
+            .innerHTML = mines.length - marks.length;
+          return;
+        }
+
+        if(!began){
+          marks = [];
+          mines = [];
+          for(let i = 0; i < Math.max(w, h); i ++){
+            const j = Math.random() * select.length;
+            mines.push(select.splice(j, 1)[0]);
+          }
+          for(const m of mines) select.push(m);
+          document.getElementById("m")
+            .innerHTML = mines.length - marks.length;
+          time = 0;
+          const t = document.getElementById("t");
+          let tt;
+          tt = setInterval(() => {
+            t.innerHTML = time ++;
+            if(boom) clearInterval(tt);
+          }, 1000);
+          began = true;
+        }
+
+        let count = 0;
+        for(let m of mines){
+          if(x == m[0] && y == m[1]){
+            if(state) return;
+            boom = true;
+            for(let n of mines){
+              const p = document.getElementById(n[0] + "_" + n[1]);
+              p.style.backgroundColor = "red";
+              p.value = "X";
+              await new Promise(r => setTimeout(r, 100));
+            }
+            return;
+          }
+          for(const dx of [- 1, 0, 1])
+            for(const dy of [- 1, 0, 1])
+              if(dx || dy)
+                if((m[0] == x + dx) && (m[1] == y + dy))
+                  count += 1;
+        }
+
+        const p = document.getElementById(x + "_" + y);
+        p.style.backgroundColor = "white";
+        if(count == 0){
+          p.value = " ";
+          for(const dx of [- 1, 0, 1])
+            for(const dy of [- 1, 0, 1])
+              if(dx || dy)
+                await cl(x + dx, y + dy, true);
+        } else {
+          const color = [
+            "blue", "green", "red", "darkblue",
+            "brown", "cyan", "black", "grey"
+          ][count - 1];
+          p.value = count;
+          p.style.color = color;
+        }
+
+        await new Promise(r => setTimeout(r, 10));
+
+        if(select.length == mines.length){
+          boom = true;
+          alert("You won!");
+        }
+      }
+
+      function mark(){
+        open = !open;
+        document.getElementById("p").value =
+          open ? "open" : "marking";
+      }
+    </script>
+
+  </head>
+
+  <body>
+    <div id="game"></div>
+    <input type="button" value="open" id="p" onclick="mark()">
+    <br>Mines: <span id="m"></span>
+    <br>Time: <span id="t"></span>
+  </body>
+</html>
