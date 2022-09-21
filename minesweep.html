@@ -24,7 +24,8 @@
       let marks;
       let time;
 
-      window.onload = () => {
+      window.onload = game;
+      function game(){
         const params = new URL(document.location).searchParams;
         w = parseInt(params.get("w"));
         w = (w > 2 && w < 30) ? w : 10;
@@ -61,6 +62,7 @@
         if(select.length == l) return;
 
         if(!open){
+          if(!began) return;
           select.push([x, y]);
           if(state) return;
 
@@ -104,6 +106,15 @@
             if(boom) clearInterval(tt);
           }, 1000);
           began = true;
+        }
+
+        const k = marks.length;
+        marks = marks.filter(m =>
+          !(m[0] == x && m[1] == y)
+        );
+        if(marks.length != k){
+          marks.push([x, y]);
+          return;
         }
 
         let count = 0;
@@ -160,6 +171,13 @@
         open = !open;
         document.getElementById("p").value =
           open ? "open" : "marking";
+      }
+
+      function newg(){
+        began = false;
+        boom = false;
+        document.getElementById("game").innerHTML = "";
+        game();
       }
     </script>
 
