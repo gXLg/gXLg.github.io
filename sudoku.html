@@ -1,0 +1,289 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+      .h {
+        display: none;
+      }
+      .f {
+        width: 10vmin;
+        height: 10vmin;
+        border-top: solid 0.1vmin;
+        border-left: solid 0.1vmin;
+        box-sizing: border-box;
+        display: inline-block;
+        vertical-align: top;
+      }
+      .d { border-bottom: solid 0.1vmin; }
+      .r { border-right: solid 0.1vmin; }
+      .u { border-top: solid 0.5vmin; }
+      .l { border-left: solid 0.5vmin; }
+      .y {
+        width: 100%; height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .p {
+        display: flex;
+        justify-content: center;
+        width: 100%; height: 30%;
+        font-size: 10%;
+      }
+      .n {
+        display: flex;
+        justify-content: center;
+        height: 70%; width: 100%;
+      }
+      .s { background: lightblue; }
+    </style>
+
+    <script>
+      let selected = 1;
+      const sol = [];
+      const sss = [];
+
+      function create(){
+        const t = document.getElementById("table");
+        t.innerHTML = "";
+        sol.splice(0);
+        sss.splice(0);
+        const p = [];
+        for(let y = 0; y < 9; y ++){
+          const l = [];
+          for(let x = 0; x < 9; x ++){
+            l.push(0);
+            p.push([x, y]);
+            const c = ["f"];
+            if(y == 8) c.push("d");
+            if(x == 8) c.push("r");
+            if(y && !(y % 3)) c.push("u");
+            if(x && !(x % 3)) c.push("l");
+            const f = "<span id=\"" + x + "_" + y +
+              "\" onclick=\"cl(" + x +
+              "," + y + ")\" class=\"" + c.join(" ") +
+              "\">" +
+                "<span class=\"p\">" +
+                  "<span id=\"1p" + x + "_" + y +
+                  "\" class=\"h\">1</span>" +
+                  "<span id=\"2p" + x + "_" + y +
+                  "\" class=\"h\">2</span>" +
+                  "<span id=\"3p" + x + "_" + y +
+                  "\" class=\"h\">3</span>" +
+                  "<span id=\"4p" + x + "_" + y +
+                  "\" class=\"h\">4</span>" +
+                  "<span id=\"5p" + x + "_" + y +
+                  "\" class=\"h\">5</span>" +
+                  "<span id=\"6p" + x + "_" + y +
+                  "\" class=\"h\">6</span>" +
+                  "<span id=\"7p" + x + "_" + y +
+                  "\" class=\"h\">7</span>" +
+                  "<span id=\"8p" + x + "_" + y +
+                  "\" class=\"h\">8</span>" +
+                  "<span id=\"9p" + x + "_" + y +
+                  "\" class=\"h\">9</span>" +
+                "</span>" +
+                "<span class=\"n\" id=\"n" + x + "_" + y +
+                "\"></span>" + 
+              "</span>";
+            t.innerHTML += f;
+          }
+          sol.push(l);
+          t.innerHTML += "<br>";
+        }
+        return p;
+      }
+
+      function save_position(){
+        let s = "";
+        let p = "";
+        for(let y = 0; y < 9; y ++){
+          for(let x = 0; x < 9; x ++){
+            if(sol[y][x])
+              s += x + "" + y + "" + sol[y][x];
+            for(let n = 1; n < 10; n ++){
+              const id = n + "p" + x + "_" + y;
+              const d = document.getElementById(id);
+              if(!d.classList.contains("h"))
+                p += x + "" + y + "" + n;
+            }
+          }
+        }
+        s += "/";
+        sss.forEach(c => s += c[0] + "" + c[1]);
+        s += "/" + p;
+        document.cookie = "pos=" + s + "; expires=Tue, 19 Jan 2038 03:14:07 UTC;";
+        alert("Position saved!");
+      }
+
+      function load_position(){
+        create();
+        const s = getCookie("pos");
+        const [so, b, p] = s.split("/");
+        for(let i = 0; i < so.length; i += 3){
+          const x = parseInt(so[i]);
+          const y = parseInt(so[i + 1]);
+          const n = parseInt(so[i + 2]);
+          document.getElementById("n" + x + "_" + y).innerHTML = n;
+          sol[y][x] = n;
+        }
+        for(let i = 0; i < b.length; i += 2){
+          const x = parseInt(b[i]);
+          const y = parseInt(b[i + 1]);
+          const f = document.getElementById(x + "_" + y);
+          f.classList.add("s");
+          f.onclick = null;
+          sss.push([x, y]);
+        }
+        for(let i = 0; i < p.length; i += 3){
+          const x = parseInt(p[i]);
+          const y = parseInt(p[i + 1]);
+          const n = parseInt(p[i + 2]);
+          const m = document.getElementById(n + "p" + x + "_" + y);
+          m.classList.remove("h");
+        }
+        
+      }
+
+      function getCookie(cname) {
+        const name = cname + "=";
+        const dc = decodeURIComponent(document.cookie);
+        for(let c of dc.split(";")){
+          c = c.trimLeft();
+          if(c.indexOf(name) == 0){
+            return c.substring(name.length, c.length);        
+          }
+        }
+        return "";
+      }
+
+      window.onload = () => {
+        const p = create();
+        solve(0, 0, true, false);
+        const s = [];
+        for(let i = 0; i < 27; i ++){
+          const [x, y] = p.splice(
+            Math.random() * p.length, 1
+          )[0];
+          const n = document.getElementById("n" + x + "_" + y);
+          n.innerHTML = sol[y][x];
+          sss.push([x, y]);
+          const f = document.getElementById(x + "_" + y);
+          f.classList.add("s");
+          f.onclick = null;
+        }
+        p.forEach(c => { sol[c[1]][c[0]] = 0; });
+      };
+
+      function solve(x, y, random, show){
+        const d = [];
+        for(let i = 0; i < 9; i ++){
+          const e = sol[i][x];
+          if(!d.includes(e) && e)
+            d.push(e);
+          const f = sol[y][i];
+          if(!d.includes(f) && f)
+            d.push(f);
+        }
+        const ly = Math.floor(y / 3) * 3;
+        const lx = Math.floor(x / 3) * 3;
+        for(let i = 0; i < 3; i ++){
+          for(let j = 0; j < 3; j ++){
+            const e = sol[ly + i][lx + j];
+            if(!d.includes(e) && e)
+              d.push(e);
+          }
+        }
+        const p = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+          .filter(i => !d.includes(i));
+        if(!p.length) return false;
+        const c = [];
+        while(p.length){
+          c.push(...p.splice(
+            random ?
+              Math.floor(Math.random() * p.length) :
+              0,
+            1
+          ));
+        }
+        sol[y][x] = 1;
+        const [nx, ny] = (() => {
+          for(let ly = 0; ly < 9; ly ++)
+            for(let lx = 0; lx < 9; lx ++)
+              if(!sol[ly][lx])
+                return [lx, ly];
+          return [- 1, - 1];
+        })();
+        const b = document.getElementById("n" + x + "_" + y);
+        for(const i of c){
+          sol[y][x] = i;
+          if(show)
+            b.innerHTML = i;
+          if(nx == - 1 && ny == - 1)
+            return true;
+          else
+            if(solve(nx, ny, random, show)) return true;
+        }
+        sol[y][x] = 0;
+        if(show)
+          b.innerHTML = "";
+        return false;
+      }
+
+      function cl(x, y){
+        const p = document.getElementById(selected + "p" + x + "_" + y);
+        const n = document.getElementById("n" + x + "_" + y);
+        if(n.innerHTML == selected){
+          n.innerHTML = "";
+          sol[y][x] = 0;
+        } else
+          if(p.classList.contains("h"))
+            p.classList.remove("h");
+          else {
+            p.classList.add("h");
+            if(n.innerHTML == ""){
+              n.innerHTML = selected;
+              sol[y][x] = selected;
+            }
+          }
+      }
+
+      function sel(s){
+        document.getElementById("s" + selected).classList.remove("s");
+        selected = s;
+        document.getElementById("s" + selected).classList.add("s");
+      }
+    </script>
+
+  </head>
+
+  <body>
+    <div id="table"></div>
+    <br>
+    <div>
+      <span id="s1" class="f d s" onclick="sel(1)">
+        <span class="y">1</span>
+      </span><span id="s2" class="f d" onclick="sel(2)">
+        <span class="y">2</span>
+      </span><span id="s3" class="f d" onclick="sel(3)">
+        <span class="y">3</span>
+      </span><span id="s4" class="f d" onclick="sel(4)">
+        <span class="y">4</span>
+      </span><span id="s5" class="f d" onclick="sel(5)">
+        <span class="y">5</span>
+      </span><span id="s6" class="f d" onclick="sel(6)">
+        <span class="y">6</span>
+      </span><span id="s7" class="f d" onclick="sel(7)">
+        <span class="y">7</span>
+      </span><span id="s8" class="f d" onclick="sel(8)">
+        <span class="y">8</span>
+      </span><span id="s9" class="f d r" onclick="sel(9)">
+        <span class="y">9</span>
+      </span>
+    </div>
+    <br>
+    <input type="button" onclick="save_position()" value="save" />
+    <input type="button" onclick="load_position()" value="load" />
+  </body>
+</html>
