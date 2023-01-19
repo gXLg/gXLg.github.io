@@ -28,7 +28,7 @@
         const memoryHTML = document.getElementById("memory");
         let html = "";
         let i = 0;
-        for(let r = 0; r < 21; r ++){
+        for(let r = 0; r < 41; r ++){
           let row = "<tr>";
           for(let c = 0; c < 11; c ++){
             if(r == 0 && c == 0){
@@ -36,9 +36,9 @@
             } else if(r == 0){
               row += "<th class=hidden>" + (c - 1) + "</th>";
             } else if(c == 0){
-              row += "<th class=hidden>" + ((r - 1) * 10) + "</th>";              
+              row += "<th class=hidden>" + ((r - 1) * 10) + "</th>";
             } else {
-              row += "<td><input type=number id=" + (i ++) + " value=0 /></td>"
+              row += "<td><input onchange=sett(" + i + ") type=number id=_" + i + " value=0 /><span class=hidden id=" + (i ++) + ">0</span></td>";
             }
           }
           row += "</tr>";
@@ -47,6 +47,10 @@
         memoryHTML.innerHTML = html;
         document.getElementById("code").value = localStorage.getItem("code") ?? "";
       };
+
+      function sett(id){
+        document.getElementById(id).innerHTML = document.getElementById("_" + id).value;
+      }
 
       function hide(){
         [...document.getElementsByTagName("th")].forEach(h => h.classList.toggle("hidden"));
@@ -74,12 +78,14 @@
         ]
       };
 
+      
 
       function parse(){
         const labels = { };
-        for(let i = 0; i < 200; i ++){
-          document.getElementById(i).value = 0;
-          document.getElementById(i).className = "";
+        for(let i = 0; i < 400; i ++){
+          document.getElementById("_" + i).value = 0;
+          sett(i);
+          document.getElementById("_" + i).className = "";
         }        
 
         const code = document.getElementById("code").value;
@@ -93,7 +99,7 @@
           if(l.slice(0, 2) == "#!"){
             const id = l.split(" ")[1];
             const color = l.split(" ")[2];
-            document.getElementById(id).classList.add(color);
+            document.getElementById("_" + id).classList.add(color);
           }
           if(l[0] == "#") continue;
           if(l.slice(-1) == ":"){
@@ -101,6 +107,7 @@
           } else {
             ll.push(l);
             c ++;
+            if(l.toLowerCase().slice(0, 4) != "word") c ++;
           }
         }
         let m = 0;
@@ -119,7 +126,8 @@
                 return;
               }
             }
-            document.getElementById(m).value = n;
+            document.getElementById("_" + m).value = n;
+            sett(m);
             m -= 1;
             was = true;
           } else {
@@ -164,8 +172,10 @@
                   id += 4;
                   continue;
                 }
-                document.getElementById(m).value = type + id + mode;
-                document.getElementById(m + 1).value = n;
+                document.getElementById("_" + m).value = type + id + mode;
+                document.getElementById("_" + (m + 1)).value = n;
+                sett(m);
+                sett(m + 1);
                 was = true;
                 break;
               }
@@ -205,11 +215,12 @@
           }
         }
         function mem(id){
-          return parseInt(document.getElementById(id).value);
+          return parseInt(document.getElementById(id).innerHTML);
         }
         function setmem(id, v){
-          document.getElementById(id).value = v;
-        }        
+          document.getElementById("_" + id).value = v;
+          sett(id);
+        }
         async function step(){
           const p = mem(PC);
           let b = mem(PC + 1);
@@ -245,6 +256,10 @@
               flags();
             } else if(id == 1){
               // store
+              if(b < 0 || b >= 400){
+                alert("Invalid memory pointer");
+                return 0;
+              }
               setmem(b, ACU);
             } else {
               alert("Wrong opcode (id)");
@@ -265,7 +280,7 @@
               flags();
             } else if(id == 3){
               // div
-              ACU = Math.floor(ACU / b);
+              ACU = parseInt(ACU / b) || 0;
               flags();
             } else if(id == 4){
               // mod
@@ -371,7 +386,6 @@
           }
         }, 1);
 
-      
       }
 
       function save(){
