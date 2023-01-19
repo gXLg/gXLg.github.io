@@ -1,0 +1,396 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+      input[type=number] {
+        width: 17vw;
+      }
+      table {
+        border: none;
+      }
+      .hidden {
+        display: none;
+      }
+      textarea {
+        width: 100%;
+        height: 200px;
+      }
+
+      .red { background-color: #f55; }
+      .green { background-color: #7f7; }
+      .blue { background-color: #99f; }
+
+    </style>
+
+    <script>
+      window.onload = () => {
+        const memoryHTML = document.getElementById("memory");
+        let html = "";
+        let i = 0;
+        for(let r = 0; r < 21; r ++){
+          let row = "<tr>";
+          for(let c = 0; c < 11; c ++){
+            if(r == 0 && c == 0){
+              row += "<th class=hidden>/</th>"
+            } else if(r == 0){
+              row += "<th class=hidden>" + (c - 1) + "</th>";
+            } else if(c == 0){
+              row += "<th class=hidden>" + ((r - 1) * 10) + "</th>";              
+            } else {
+              row += "<td><input type=number id=" + (i ++) + " value=0 /></td>"
+            }
+          }
+          row += "</tr>";
+          html += row;
+        }
+        memoryHTML.innerHTML = html;
+        document.getElementById("code").value = localStorage.getItem("code") ?? "";
+      };
+
+      function hide(){
+        [...document.getElementsByTagName("th")].forEach(h => h.classList.toggle("hidden"));
+      }
+
+      const table = {
+        "flow": [
+          "hold", "reset", "noop"
+        ],
+        "save": [
+          "load_$", "store$"
+        ],
+        "arithmetics": [
+          "add_$", "sub_$", "mul_$",
+          "div_$", "mod_$", "cmp_$",
+        ],
+        "bits": [
+          "and_$", "or_$", "xor_$", "not",
+          "shl_$", "shr_$", "shra_$",
+        ],
+        "branch": [
+          "jmpp/jgt$", "jmpnn/jge$", "jmpn/jlt$",
+          "jmpnp/jle$", "jmpz/jeq$", "jmpnz/jne$",
+          "jmpv/jov$", "jmp$"
+        ]
+      };
+
+
+      function parse(){
+        const labels = { };
+        for(let i = 0; i < 200; i ++){
+          document.getElementById(i).value = 0;
+          document.getElementById(i).className = "";
+        }        
+
+        const code = document.getElementById("code").value;
+        const lines = code.split("\n");
+
+        let c = 0;
+        const ll = [];
+        for(const line of lines){
+          const l = line.trim();
+          if(l == "") continue;
+          if(l.slice(0, 2) == "#!"){
+            const id = l.split(" ")[1];
+            const color = l.split(" ")[2];
+            document.getElementById(id).classList.add(color);
+          }
+          if(l[0] == "#") continue;
+          if(l.slice(-1) == ":"){
+            labels[l.slice(0, -1)] = c;
+          } else {
+            ll.push(l);
+            c ++;
+          }
+        }
+        let m = 0;
+        for(const l of ll){
+          const [a, b] = l.split(/\s+/);
+          const p = a.toLowerCase();
+          let type = 0;
+          let was = false;
+          if(p == "word"){
+            let n = parseInt(b);
+            if(isNaN(n)){
+              if(b in labels){
+                n = labels[b];
+              } else {
+                alert("Invalid input");
+                return;
+              }
+            }
+            document.getElementById(m).value = n;
+            m -= 1;
+            was = true;
+          } else {
+            for(const i in table){
+              const set = table[i];
+              let id = 0;
+              for(const op of set){
+                let op2 = op;
+                let op1 = p;
+                let op3 = b;
+                let mode = 1;
+                let n = 0;
+                if(op2.slice(-1) == "$"){
+                  op2 = op2.slice(0, -1);
+                  let q = false;
+                  if(op2.slice(-1) == "_"){
+                    q = true;
+                    op2 = op2.slice(0, -1);
+                    if(op1.slice(-1) == "i"){
+                      op1 = op1.slice(0, -1);
+                      mode = 0;
+                    }
+                  }
+                  if(op3 && op3[0] == "("){
+                    op3 = op3.slice(1, -1);
+                    mode = q ? 2 : 1;
+                  } else if(!q){
+                    mode = 0;
+                  }
+                  n = parseInt(op3);
+                  if(op3 && isNaN(n)){
+                    if(op3 in labels){
+                      n = labels[op3];
+                    } else {
+                      alert("Invalid input");
+                      return;
+                    }
+                  }
+                } else { mode = 0; }
+                const [l, r] = op2.split("/");
+                if(![l, r].includes(op1)){
+                  id += 4;
+                  continue;
+                }
+                document.getElementById(m).value = type + id + mode;
+                document.getElementById(m + 1).value = n;
+                was = true;
+                break;
+              }
+              type += 32;
+            }
+          }
+          if(!was){
+            alert("Invalid OP");
+            return;
+          }
+          m += 2;
+        }
+      }
+
+      async function run(){
+        let PC = 0;
+        let Z = false;
+        let N = false;
+        let V = false;
+        let ACU = 0;
+        function flags(){
+          Z = false;
+          N = false;
+          V = false;
+
+          if(ACU < 0){
+            N = true;
+            if(ACU < -32768){
+              V = true;
+              while(ACU < -32768) ACU += 65536;
+            }
+          } else if(ACU == 0){
+            Z = true;
+          } else if(ACU > 32767){
+            V = true;
+            ACU = (ACU + 32768) % 65536 - 32768;
+          }
+        }
+        function mem(id){
+          return parseInt(document.getElementById(id).value);
+        }
+        function setmem(id, v){
+          document.getElementById(id).value = v;
+        }        
+        async function step(){
+          const p = mem(PC);
+          let b = mem(PC + 1);
+          const mode = p & 3;
+          const id = (p >> 2) & 7;
+          const type = (p >> 5);
+          if(mode == 1){
+            b = mem(b);
+          } else if(mode == 2){
+            b = mem(mem(b));
+          }
+          if(type == 0){
+            if(id == 0){
+              // hold
+              return 0;
+            } else if(id == 1){
+              // reset
+              PC = - 2;
+              Z = false;
+              N = false;
+              V = false;
+              ACU = 0;
+            } else if(id == 2){
+              // noop
+            } else {
+              alert("Wrong opcode (id)");
+              return 0;
+            }
+          } else if(type == 1){
+            if(id == 0){
+              // load
+              ACU = b;
+              flags();
+            } else if(id == 1){
+              // store
+              setmem(b, ACU);
+            } else {
+              alert("Wrong opcode (id)");
+              return 0;
+            }
+          } else if(type == 2){
+            if(id == 0){
+              // add
+              ACU += b;
+              flags();
+            } else if(id == 1){
+              // sub
+              ACU -= b;
+              flags();
+            } else if(id == 2){
+              // mul
+              ACU *= b;
+              flags();
+            } else if(id == 3){
+              // div
+              ACU = Math.floor(ACU / b);
+              flags();
+            } else if(id == 4){
+              // mod
+              ACU %= b;
+              flags();
+            } else if(id == 5){
+              // cmp
+              const a = ACU;
+              ACU -= b;
+              flags();
+              ACU = a;
+            } else {
+              alert("Wrong opcode (id)");
+              return 0;
+            }
+          } else if(type == 3){
+            if(id == 0){
+              // and
+              ACU &= b;
+            } else if(id == 1){
+              // or
+              ACU |= b;
+            } else if(id == 2){
+              // xor
+              ACU ^= b;
+            } else if(id == 3){
+              // not
+              ACU = ~ACU;
+            } else if(id == 4){
+              // shl
+              ACU >>= b;
+            } else if(id == 5){
+              // shr
+              ACU <<= b;
+            } else if(id == 6){
+              // shra
+              const bit = ACU & 32768
+              for(let i = 0; i < b; i ++){
+                ACU >>= 1;
+                ACU += bit >> i;
+              }
+            } else {
+              alert("Wrong opcode (id)");
+              return 0;
+            }
+            flags();
+          } else if(type == 4){
+            if(id == 0){
+              // jmpp
+              if(!N && !Z){
+                PC = b - 2;
+              }
+            } else if(id == 1){
+              // jmpnn
+              if(!N){
+                PC = b - 2;
+              }
+            } else if(id == 2){
+              // jmpn
+              if(N){
+                PC = b - 2;
+              }
+            } else if(id == 3){
+              // jmpnp
+              if(N || Z){
+                PC = b - 2;
+              }
+            } else if(id == 4){
+              // jmpz
+              if(Z){
+                PC = b - 2;
+              }
+            } else if(id == 5){
+              // jmpnz
+              if(!Z){
+                PC = b - 2;
+              }
+            } else if(id == 6){
+              // jmpv
+              if(V){
+                PC = b - 2;
+              }
+            } else if(id == 7){
+              // jmp
+              PC = b - 2;
+            } else {
+              alert("Wrong opcode (id)");
+              return 0;
+            }
+          } else {
+            alert("Wrong opcode (type)");
+            return 0;
+          }
+          PC += 2;
+          return 1;
+        }
+
+        const i = setInterval(async () => {
+          const r = await step();
+          if(!r){
+            clearInterval(i);
+            alert("Ready");
+          }
+        }, 1);
+
+      
+      }
+
+      function save(){
+        localStorage.setItem("code", document.getElementById("code").value);
+      }
+   </script>
+
+  </head>
+
+  <body>
+    <h1>Mini Maschine</h1>
+    <h2>Copyright Albert Wiedemann</h2>
+    <h3>Memory</h3>
+    <table id="memory" cellspacing=0 cellpadding=0></table>
+    <input type="button" onclick="hide()" value="Addresses"/>
+    <br>
+    <h3>Code</h3>
+    <textarea id="code" onchange="save()"></textarea>
+    <input type="button" onclick="parse()" value="Parse"/>
+    <input type="button" onclick="run()" id="runner" value="Run"/>
+  </body>
+</html>
