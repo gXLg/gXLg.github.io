@@ -3,7 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
-      input[type=number] {
+      .s, input[type=number] {
         width: 17vw;
       }
       table {
@@ -191,6 +191,10 @@
       }
 
       async function run(){
+        const button = document.getElementById("runner");
+        button.disabled = true;
+        button.value = "Running...";
+
         let PC = 0;
         let Z = false;
         let N = false;
@@ -296,7 +300,7 @@
               alert("Wrong opcode (id)");
               return 0;
             }
-          } else if(type == 3){
+    6      } else if(type == 3){
             if(id == 0){
               // and
               ACU &= b;
@@ -380,9 +384,19 @@
 
         const i = setInterval(async () => {
           const r = await step();
+          const a = (j, k) => {
+            document.getElementById(j).value = k;
+          };
+          a("_ACU", ACU);
+          a("_PC", PC);
+          a("_Z", Z);
+          a("_N", N);
+          a("_V", V);
           if(!r){
             clearInterval(i);
             alert("Ready");
+            button.disabled = false;
+            button.value = "Run";
           }
         }, 1);
 
@@ -400,7 +414,12 @@
     <h2>Copyright Albert Wiedemann</h2>
     <h3>Memory</h3>
     <table id="memory" cellspacing=0 cellpadding=0></table>
-    <input type="button" onclick="hide()" value="Addresses"/>
+    <input type="button" onclick="hide()" value="Addresses"/><br>
+    ACU: <input type=number id="_ACU" readonly value=0>
+    PC: <input type=number id="_PC" readonly value=0><br>
+    Z: <input class=s type=text id="_Z" readonly value="false">
+    N: <input class=s type=text id="_N" readonly value="false">
+    V: <input class=s type=text id="_V" readonly value="false">
     <br>
     <h3>Code</h3>
     <textarea id="code" onchange="save()"></textarea>
