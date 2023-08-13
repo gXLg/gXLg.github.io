@@ -163,7 +163,7 @@
         solve(0, 0, true, false);
         const s = [];
         const qe = new URLSearchParams(window.location.search);
-        for(let i = 0; i < qe.get("e") ?? 27; i ++){
+        for(let i = 0; i < (qe.get("e") ?? 27); i ++){
           const [x, y] = p.splice(
             Math.random() * p.length, 1
           )[0];
