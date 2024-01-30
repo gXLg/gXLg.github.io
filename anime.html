@@ -183,7 +183,7 @@
         const loading = { };
         anime.forEach(a => {
           visible[num] = false;
-          const quote = a[2] ? "<br><q>" + a[2] + "</q>";
+          const quote = a[2] ? "<br><q>" + a[2] + "</q>" : "";
           table.innerHTML += "<tr style=\"opacity:0%\" id=" + num + "><td class=num>#" +
                              num + "</td><td class=name>" + a[0] +
                              "<br>&#9734; " + a[1] + quote + "</td></tr>";
