@@ -4,7 +4,7 @@ Help me with developing your favourite mods.
 This is a mod which gives access to some technical parts of minecraft,
 which you can install to provide further information to me.
 
-[Download MultiMod](https://gxlg.github.io/multi-mod/multi-1.0.0.jar).
+\>\>\> [<kbd>Download MultiMod</kbd>](https://gxlg.github.io/multi-mod/multi-1.0.0.jar) <<<
 
 # Enchantments
 Used for `LibrGetter`. Use this feature whenever there is a new
