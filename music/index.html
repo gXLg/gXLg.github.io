@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>gXLg Music Links</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Quicksand', Arial, sans-serif;
+      background-color: #111;
+      color: #fff;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, #111 50%),
+                  url('https://i.scdn.co/image/ab6761610000e5eb6b9ffc1d1cec60acc1a83dcf') no-repeat top center;
+      background-size: 100% auto;
+      background-attachment: fixed;
+    }
+
+    .blurred-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(40px);
+      z-index: -1;
+    }
+
+    .container {
+      margin: 0 auto;
+      padding: 1rem;
+      position: relative;
+    }
+
+    .listen {
+      font-size: 1.2rem;
+    }
+
+    .artist-name {
+      font-size: 2.2rem;
+      font-weight: bold;
+      margin-bottom: 0.7rem;
+    }
+
+    .cover-art {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+
+    .quote {
+      font-style: italic;
+      font-size: 1.1rem;
+      opacity: 0.8;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .service-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      box-shadow: 0 0 10px 5px black;
+      margin-bottom: 1rem;
+    }
+
+    .service {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #111;
+      padding: 1rem;
+      transition: background 0.2s ease;
+    }
+
+    .service:nth-of-type(2n) {
+      background: #222;
+    }
+
+    .service span {
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 0.6rem;
+    }
+
+    .service .link {
+      background: #333;
+      color: #fff;
+      border: none;
+      font-size: 0.8rem;
+      padding: 0.6rem 2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      text-decoration: none;
+    }
+
+    .service .link:after {
+      content: "▶";
+    }
+
+    .service .link:hover {
+      background: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="blurred-bg"></div>
+  <div class="container">
+    <div class="listen">Listen to</div>
+    <div class="artist-name">gXLg</div>
+    <img src="https://i.scdn.co/image/ab6761610000e5eb6b9ffc1d1cec60acc1a83dcf" alt="gXLg Cover" class="cover-art" />
+
+    <div class="quote">"Wassssuuuppp"</div>
+
+    <div class="service-list">
+      <div class="service">
+        <span><img class="icon" src="/music/spotify.svg"/>Spotify</span>
+        <a class="link" href="https://open.spotify.com/artist/2byoOe3UBitSVUz6ViyhWq" target="_blank"></a>
+      </div>
+      <div class="service">
+        <span><img class="icon"  src="/music/ytmusic.svg"/>YouTube Music</span>
+        <a class="link" href="https://music.youtube.com/channel/UC_KQlZTGXF21HeIS_JRRGQA" target="_blank"></a>
+      </div>
+      <div class="service">
+        <span><img class="icon" src="/music/scloud.svg"/>SoundCloud</span>
+        <a class="link" href="https://soundcloud.com/gxlg" target="_blank"></a>
+      </div>
+      <div class="service">
+        <span><img class="icon" src="/music/deezer.svg"/>Deezer</span>
+        <a class="link" href="https://www.deezer.com/en/artist/159939392" target="_blank"></a>
+      </div>
+      <div class="service">
+        <span><img class="icon" src="/music/apple.svg"/>Apple Music</span>
+        <a class="link" href="https://music.apple.com/en/artist/gxlg/1807076497" target="_blank"></a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
