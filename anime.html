@@ -229,7 +229,10 @@
           ["Dimension W", "Yuuji Iwahara", "Very interesting story placed in the near future; really good scientific explanations on top of the whole fiction made me fully dive into this world"],
           ["Bocchi the Rock!", "Aki Hamaji", "A simple and heartwarming music comedy"],
           ["Even Given the Worthless 'Appraiser' Class, I'm Actually the Strongest", "Ibarakino", "Typical weakest-to-strongest anime with a harem, however surprisingly well structured and with little fanservice"],
-          ["Kaiju No.8", "Naoya Matsumoto", "Really good intro, but the anime itself is a bit overhyped"]
+          ["Kaiju No.8", "Naoya Matsumoto", "Really good intro, but the anime itself is a bit overhyped"],
+          ["Demon King Daimao", "Shoutarou Mizuki", "The anime is heavily bases on fan service and has a non-intuitive storyline"],
+          ["I'm a Noble on the Brink of Ruin, So I Might as Well Try Mastering Magic", "Nazuna Miki", "A fast paced story about magic, but MC's ease of handling new challenges makes the anine anticlimatic"],
+          ["Your Name", "Makoto Shinkai", "Immersive, beatiful and full of emotions; perfect story telling, wasn't bored for a single second"]
         ];
         const table = document.getElementById("list");
         let num = 1;
@@ -282,6 +285,10 @@
         addEventListener("scroll", onv, false);
         addEventListener("resize", onv, false);
         onv();
+
+        window.onload = () => {
+          if (hash) document.getElementById(hash)?.scrollIntoView({ "behavior": "smooth" });
+        };
      }
     </script>
   </head>
