@@ -8,33 +8,84 @@ if ! pyenv --version >/dev/null 2>&1; then
 fi
 
 # Check if the venv helper already exists
-if [ -f /usr/local/bin/venv ]; then
-  echo "You already have an executable at '/usr/local/bin/venv'"
+if command -v venv >/dev/null; then
+  echo "You already have the 'venv' command installed"
   exit 1
 fi
 
-# Try creating the venv helper
-if ! touch /usr/local/bin/venv 2>/dev/null; then
-  echo "Permission denied! Run the script with admin permissions!"
+# Get the shell
+shell_name=$(basename "$SHELL")
+
+# Dotfile
+rc_file=""
+case "$shell_name" in
+  bash)
+    rc_file="$HOME/.bashrc"
+    ;;
+  zsh)
+    rc_file="$HOME/.zshrc"
+    ;;
+  sh)
+    # usually no rc file, or .profile
+    rc_file="$HOME/.profile"
+    ;;
+  csh|tcsh)
+    rc_file="$HOME/.cshrc"
+    ;;
+  fish)
+    # fish config is usually here
+    rc_file="$HOME/.config/fish/config.fish"
+    ;;
+  *)
+    echo "Unknown shell: $shell_name"
+    rc_file=""
+    ;;
+esac
+
+if [ -n "$rc_file" ]; then
+  echo "Detected rc file: $rc_file"
+else
+  echo "No rc file detected for shell: $shell_name"
   exit 1
 fi
 
-# Write the venv helper script
-cat << EOF > /usr/local/bin/venv
-#!/bin/bash
-if [[ ! -d .venv ]]; then
-  pyenv local 2>/dev/null || (
-    if [[ "$1" == "" ]]; then
-      echo "No version specified for this directory, please specify on the first run"
-      exit 1
-    else
-      pyenv local "$1" || (
-        pyenv install "$1" && pyenv local "$1"
-      )
-    fi
-  ) && (echo "Creating Python Virtual Environment..."; pyenv exec python -m venv ./.venv && echo "\n# Python Venv\n.venv" >> .gitignore)
-fi && source .venv/bin/activate
+# Activation
+case "$shell_name" in
+  bash|sh|zsh)
+    activate="activate"
+    ;;
+  csh|tcsh)
+    activate="activate.csh"
+    ;;
+  fish)
+    activate="activate.fish"
+    ;;
+  *)
+    echo "Shell $shell_name not recognized, defaulting to bash activate"
+    activate="activate"
+    ;;
+esac
+
+# Write the venv helper function
+cat << EOF >> $rc_file
+
+
+venv() {
+  if [[ ! -d .venv ]]; then
+    pyenv local 2>/dev/null || (
+      if [[ "\$1" == "" ]]; then
+        echo "No version specified for this directory, please specify on the first run"
+        exit 1
+      else
+        pyenv local "\$1" || (
+          pyenv install "\$1" && pyenv local "\$1"
+        )
+      fi
+    ) && (echo "Creating Python Virtual Environment..."; pyenv exec python -m venv ./.venv && echo "\n# Python Venv\n.venv" >> .gitignore)
+  fi && source .venv/bin/$activate
+}
+
+
 EOF
 
-chmod +x /usr/local/bin/venv
-echo "venv helper installed! To remove, run 'rm /usr/local/bin/venv'"
+echo "venv helper installed! To remove, remove the 'venv' function definition from '$rc_file'"
