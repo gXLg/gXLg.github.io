@@ -89,3 +89,4 @@ venv() {
 EOF
 
 echo "venv helper installed! To remove, remove the 'venv' function definition from '$rc_file'"
+echo "To use the function, restart your shell"
