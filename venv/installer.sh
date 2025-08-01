@@ -77,7 +77,6 @@ cat << EOF >> "$rc_file"
 
 # venv helper, installed on $(date '+%F %T')
 venv() {
-  echo "Python Virtual Environment Helper by gXLg"
   if [[ "\$1" == "del" ]]; then
     echo "Removing Python Virtual Environment from this directory"
     rm -rf .venv .python-version
