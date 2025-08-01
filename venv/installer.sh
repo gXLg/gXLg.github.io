@@ -1,8 +1,14 @@
-#!/bin/sh
+#!/bin/bash
+
+# Python Virtual Environment Manager by gXLg
+# Simply adds a new 'venv' function into your RC file
+
+# Usage:
+# curl -sSL https://gXLg.github.io/venv/installer.sh | bash
 
 # Check if pyenv is installed
 if ! pyenv --version >/dev/null 2>&1; then
-  echo "Pyenv is not installed. Follow the installation guide on:"
+  echo "'pyenv' is not installed. Follow the installation guide on:"
   echo "  https://github.com/pyenv/pyenv"
   exit 1
 fi
@@ -43,7 +49,7 @@ case "$shell_name" in
 esac
 
 if [ -n "$rc_file" ]; then
-  echo "Detected rc file: $rc_file"
+  echo "Detected rc file: '$rc_file'"
 else
   echo "No rc file detected for shell: $shell_name"
   exit 1
@@ -67,26 +73,47 @@ case "$shell_name" in
 esac
 
 # Write the venv helper function
-cat << EOF >> $rc_file
+cat << EOF >> "$rc_file"
 
-
+# venv helper, installed on $(date '+%F %T')
 venv() {
+  echo "Python Virtual Environment Helper by gXLg"
+  if [[ "\$1" == "del" ]]; then
+    echo "Removing Python Virtual Environment from this directory"
+    rm -rf .venv .python-version
+    deactivate 2>/dev/null
+    return
+  fi
   if [[ ! -d .venv ]]; then
-    pyenv local 2>/dev/null || (
-      if [[ "\$1" == "" ]]; then
-        echo "No version specified for this directory, please specify on the first run"
-        exit 1
-      else
-        pyenv local "\$1" || (
-          pyenv install "\$1" && pyenv local "\$1"
-        )
+    if ! pyenv local &>/dev/null; then
+      if [[ -z "\$1" ]]; then
+        echo "No python version specified for this directory, please specify on the first run"
+        return 1
       fi
-    ) && (echo "Creating Python Virtual Environment..."; pyenv exec python -m venv ./.venv && echo "\n# Python Venv\n.venv" >> .gitignore)
-  fi && source .venv/bin/$activate
-}
 
+      if ! pyenv local "\$1"; then
+        pyenv install "\$1" && pyenv local "\$1"
+      fi
+    fi
+
+    echo "Creating Python Virtual Environment..."
+    pyenv exec python -m venv .venv
+    if ! grep -Fxq ".venv" .gitignore 2>/dev/null; then
+      echo -e "\n# Python Venv\n.venv" >> .gitignore
+    fi
+    source .venv/bin/$activate
+    echo "Upgrading pip"
+    pip install --upgrade pip
+    echo "Python Virtual Environment installed and activated"
+  else
+    source .venv/bin/$activate
+    echo "Activated Python Virtual Environment"
+    python --version
+  fi
+}
 
 EOF
 
-echo "venv helper installed! To remove, remove the 'venv' function definition from '$rc_file'"
-echo "To use the function, restart your shell"
+echo "Python Virtual Environment Helper installed! To uninstall, simply remove the 'venv' function definition from '$rc_file'"
+echo "To use the function, restart your shell or run 'source $rc_file'"
+echo "To update 'venv' later, first remove it, then run the installer again"
