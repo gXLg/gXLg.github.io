@@ -120,8 +120,6 @@
           ["Black Bullet", "Shiden Kanzahi", "Nice."],
           ["Brynhildr In The Darkness", "Lynn Okamoto", "Unexpectedly good."],
           ["A Sister's All You Need", "Yomi Hirasaka"],
-          ["Our Summer Holiday", "Kaori Ozaki"],
-          ["Nenene", "Shizuku Totoho", "Funny manga, sadly never reaches the climax."],
           ["Spirited Away", "Hayao Miyazaki"],
           ["God's Notepad", "Hikaru Sugii"],
           ["The Helpful Fox Senko", "Rimukoro"],
@@ -311,12 +309,23 @@
         for (const a of anime) {
           const star = a[0].startsWith("★");
           const name = star ? a[0].slice(2) : a[0];
+          const q = new URLSearchParams({ "q": name });
           const tc = "<span class=\"num\">" + (star ? "★" : "#") + num + "</span>" +
             "<span class=name><b>" + name + "</b><br>" + a[1] + "</span>";
-          list.innerHTML += "<div" + (num == hash ? " class=\"selected\" " : "") + ">" +
-            "<div class=\"" + (star ? "star " : "")+ "row\" id=\"" + num + "\">" + tc + "</div>" +
-            (a[2] ? "<div><q>" + a[2] + "</q></div>" : "") +
-          "</div>";
+
+          const div = document.createElement("div");
+          if (num == hash) div.classList.add("selected");
+          div.onclick = () => {
+            Object.assign(document.createElement("a"), {
+              "target": "_blank",
+              "rel": "noopener noreferrer",
+              "href": "https://myanimelist.net/anime.php?" + q,
+            }).click();
+          };
+
+          div.innerHTML = "<div class=\"" + (star ? "star " : "")+ "row\" id=\"" + num + "\">" +
+            tc + "</div>" + (a[2] ? "<div><q>" + a[2] + "</q></div>" : "");
+          list.appendChild(div);
           num ++;
         }
 
