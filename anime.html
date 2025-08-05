@@ -1,6 +1,7 @@
 <html>
   <head>
     <title>Anime List</title>
+    <meta charset="UTF-8">
     <meta name=viewport content="width=device-width, initial-scale=1.0">
     <meta property="og:title" content="Anime List">
     <meta property="og:site_name" content="gXLg">
@@ -16,38 +17,97 @@
         font-family: kawaii;
       }
       body {
-        background: #355D82;
+        background: #080d12;
       }
-      h1 {
-        background: #87CFFF;
-        color: #355D82;
-        padding: 10px;
-        border-radius: 10px;
+      .container {
+        padding: 20px 10% 50px 10%;
       }
-      table {
+
+      #list {
+        padding-top: 60px;
         width: 100%;
-        border-spacing: 0px 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
       }
-      td {
-        background: #CBC2FF;
-        color: #355D82;
-        padding: 8px;
+
+      .row {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+        align-items: center;
+
+        color: #7caff2;
+        text-shadow:
+          0 0 5px #7caff2,
+          0 0 15px #7caff2;
+
       }
       .num {
-        font-size: 2em;
-        border-radius: 8px 0px 0px 8px;
+        font-size: 3em;
+        flex: 0;
+        vertical-align: middle;
       }
       .name {
-        border-radius: 0px 8px 8px 0px;
+        flex: 1;
       }
-      .selected .num {
-        border: 5px solid #DF9BD6;
-        border-right: none;
+      q {
+        margin-left: 10px;
+
+        color: #7caff2;
+        text-shadow:
+          0 0 5px #7caff2,
+          0 0 15px #7caff2;
       }
-      .selected .name {
-        border: 5px solid #DF9BD6;
-        border-left: none;
+
+      .star {
+        color: #fc449d;
+        text-shadow:
+          0 0 5px #fc449d,
+          0 0 10px #fc449d,
+          0 0 20px #fc449d;
       }
+
+      @keyframes flicker {
+        0%, 18%, 22%, 25%, 53%, 57%, 100% {
+          text-shadow:
+            0 0 5px #c582ff,
+            0 0 10px #c582ff,
+            0 0 20px #c582ff,
+            0 0 40px #c582ff,
+            0 0 80px #c582ff;
+        }
+        20%, 24%, 55% {
+          text-shadow: none;
+        }
+      }
+
+      h1 {
+        animation: flicker 5s infinite alternate;
+        color: #c582ff;
+        text-align: center;
+      }
+
+      @keyframes flicker2 {
+        0%, 18%, 22%, 25%, 53%, 57%, 100% {
+          box-shadow:
+            inset 0 0 5px #ed2df7,
+            inset 0 0 10px #ed2df7,
+            0 0 5px #ed2df7,
+            0 0 10px #ed2df7,
+            0 0 20px #ed2df7;
+        }
+        20%, 24%, 55% {
+          box-shadow: none;
+        }
+      }
+
+      .selected {
+        padding: 10px;
+        border-radius: 5px;
+        animation: flicker2 6s infinite alternate;
+      }
+
     </style>
     <script>
       window.onload = () => {
@@ -245,66 +305,29 @@
           ["The Day I Became a God", "Jun Maeda", "Starts very cute, you grow attached to the characters... And then it brutally breaks your heart"],
           ["Ulysses: Jeanne d'Arc and the Alchemist Knight", "Mikage Kasuga", "A little bit weird, fast paced, but also interesting"]
         ];
-        const table = document.getElementById("list");
+        const list = document.getElementById("list");
         let num = 1;
         const hash = parseInt(window.location.hash.slice(1));
-        console.log("hash:", hash);
-        const visible = {};
-        const loading = {};
-        anime.forEach(a => {
-          visible[num] = false;
-          const quote = a[2] ? "<br><q>" + a[2] + "</q>" : "";
-          const tc = "<td class=num>#" +
-            num + "</td><td class=name>" + a[0] +
-            "<br>&#9734; " + a[1] + quote + "</td>";
-          if (hash == num) {
-            table.innerHTML += "<tr class=\"selected\" style=\"opacity:0%\" id=\"" + num + "\">" + tc + "</tr>";
-          } else {
-            table.innerHTML += "<tr style=\"opacity:0%\" id=\"" + num + "\">" + tc + "</tr>";
-          }
+        for (const a of anime) {
+          const star = a[0].startsWith("★");
+          const name = star ? a[0].slice(2) : a[0];
+          const tc = "<span class=\"num\">" + (star ? "★" : "#") + num + "</span>" +
+            "<span class=name><b>" + name + "</b><br>" + a[1] + "</span>";
+          list.innerHTML += "<div" + (num == hash ? " class=\"selected\" " : "") + ">" +
+            "<div class=\"" + (star ? "star " : "")+ "row\" id=\"" + num + "\">" + tc + "</div>" +
+            (a[2] ? "<div><q>" + a[2] + "</q></div>" : "") +
+          "</div>";
           num ++;
-        });
-
-        function opaq(el, op, i) {
-          el.style.opacity = op + "%";
-          if (op < 100) loading[i] = setTimeout(() => opaq(el, op + 5, i), 10);
         }
 
-        function isv(el) {
-          const rect = el.getBoundingClientRect();
-          return (
-            rect.bottom >= 0 &&
-            rect.top <= (window.innerHeight || document.documentElement.clientHeight)
-          );
-        }
-
-        function onv() {
-          for (let i = 1; i <= anime.length; i ++) {
-            const el = document.getElementById(i);
-            const v = isv(el);
-            if (v != visible[i]) {
-              visible[i] = v;
-              clearTimeout(loading[i]);
-              if (v) opaq(el, 0, i);
-              else el.style.opacity = "0%";
-            }
-          }
-        }
-
-        addEventListener("DOMContentLoaded", onv, false);
-        addEventListener("load", onv, false);
-        addEventListener("scroll", onv, false);
-        addEventListener("resize", onv, false);
-        onv();
-
-        window.onload = () => {
-          if (hash) document.getElementById(hash)?.scrollIntoView({ "behavior": "smooth" });
-        };
-     }
+        if (hash) document.getElementById(Math.max(hash - 3, 1))?.scrollIntoView({ "behavior": "smooth" });
+     };
     </script>
   </head>
   <body>
-    <h1>&#127471;&#127477; Anime List \^w^/</h1>
-    <table id="list"></table>
+    <div class="container">
+      <h1>=(^w^)= Anime List</h1>
+      <div id="list"></div>
+    </div>
   </body>
 </html>
