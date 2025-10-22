@@ -4,5 +4,6 @@
   "label": "MultiVersion",
   "labelColor": "lightGray",
   "message": "1.17 - 1.21.10",
-  "color": "3f3f3f"
+  "color": "3f3f3f",
+  "style": "flat-square"
 }
