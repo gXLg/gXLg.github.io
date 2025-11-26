@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "logo": "paypal",
+  "namedLogo": "paypal",
   "logoColor": "black",
   "label": "PayPal",
   "labelColor": "00457c",
