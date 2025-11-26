@@ -3,8 +3,8 @@
   "namedLogo": "paypal",
   "logoColor": "black",
   "label": "PayPal",
-  "labelColor": "00457c",
+  "labelColor": "009cde",
   "message": "Donate",
-  "color": "009cde",
+  "color": "00457c",
   "style": "flat-square"
 }
