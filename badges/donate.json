@@ -2,6 +2,7 @@
   "schemaVersion": 1,
   "logo": "paypal",
   "logoColor": "black",
+  "label": "PayPal",
   "labelColor": "00457c",
   "message": "Donate",
   "color": "009cde",
