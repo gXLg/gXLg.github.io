@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+  
+    <title>Random Chinese Characters Generator</title>
+
+    <style>
+      html, body {
+        margin: 0;
+        height: 100%;
+      }
+      
+      body {
+        background-color: #2b2a27;
+      }
+    
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        gap: 20px;
+      }
+      
+      .title {
+        font-size: 30px;
+        color: #ffffff;
+      }
+    
+      .output {
+        border: 1px solid black;
+        border-radius: 10px;
+        background-color: #e8b256;
+        padding: 10px;
+        font-size: 20px;
+        width: fit-content;
+        max-width: 70%;
+      }
+      
+      .buttons {
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+      }
+
+      .input {
+        border: 1px solid black;
+        border-radius: 10px;
+        background-color: #d66f38;
+        padding: 10px;
+        font-size: 20px;
+      }
+      
+      input {
+        color: #000000;
+        border: 1px solid black;
+        border-radius: 5px;
+        background-color: #ffffff;
+      }
+      
+      input:hover {
+        background-color: #aaaaaa;
+      }
+      
+      .note {
+        color: #aaaaaa;
+      }
+    </style>
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="title">
+        Random Chinese Characters Generator
+      </div>
+    
+      <div class="output">
+        <div id="output"></div>
+        <div class="buttons">
+          <input id="copy" type="button" value="Copy">
+          <input type="button" value="Regenerate" onclick="window.location.reload()">
+        </div>
+      </div>
+      
+      <div class="input">
+        <form>
+          <label>
+            Length:
+            <input type="text" name="length">
+          </label>
+          <input type="submit" value="Generate">
+        </form>
+      </div>
+      
+      <div class="note">
+        Character codepages taken from <a href="https://www.khngai.com/chinese/charmap/tbluni.php">Web Sailor</a>.
+      </div>
+    </div>
+
+    <script>
+      const PAGES = [[0x4E00, 0x4FFF], [0x5000, 0x5FFF], [0x6000, 0x6FFF], [0x7000, 0x7FFF], [0x8000, 0x8FFF], [0x9000, 0x9FA5]];
+
+      const params = new URLSearchParams(window.location.search);
+      let length = parseInt(params.get("length"));
+      if (isNaN(length) || length < 1 || length > 100) {
+        length = 5;
+      }
+
+      let result = "";
+      for (let i = 0; i < length; i++) {
+        const page = PAGES.at(Math.random() * PAGES.length);
+        const [from,  to] = page;
+        const charCode = Math.random() * (to - from + 1) + from
+        const char = String.fromCharCode(charCode);
+        result += char;
+      }
+      document.getElementById("output").innerText = result;
+      document.getElementById("copy").onclick = () => navigator.clipboard.writeText(result);
+
+    </script>
+  </body>
+</html>
